@@ -1,24 +1,24 @@
-function ViewPort(game, ctx){
-  this.ctx = ctx;
-  this.game = game;
-  this.triangle = this.game.addTriangle();
+function ViewPort(game, ctx) {
+	this.ctx = ctx;
+	this.game = game;
+	this.cursor = this.game.addCursor();
 }
 
-GameView.prototype.start = function start() {
-  this.bindKeyHandlers();
-  this.lastTime = 0;
-  
-  requestAnimationFrame(this.animate.bind(this));
+ViewPort.prototype.start = function start() {
+	// this.bindKeyHandlers();
+	this.lastTime = 0;
+
+	requestAnimationFrame(this.animate.bind(this));
 };
 
-GameView.prototype.animate = function animate(time) {
-  const timeDelta = time - this.lastTime;
+ViewPort.prototype.animate = function animate(time) {
+	const timeDelta = time - this.lastTime;
 
-  this.game.step(timeDelta);
-  this.game.draw(this.ctx);
-  this.lastTime = time;
+	this.game.step(timeDelta);
+	this.game.draw(this.ctx);
+	this.lastTime = time;
 
-  requestAnimationFrame(this.animate.bind(this));
+	requestAnimationFrame(this.animate.bind(this));
 };
 
 module.exports = ViewPort;
