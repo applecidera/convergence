@@ -8,27 +8,31 @@ function Game(){
 Game.DIM_X = 1024;
 Game.DIM_Y = 768;
 
-Game.prototype.allObjects = function() {
-  return [].concat(this.triangle, this.walls)
+// Game.prototype.allObjects = function() {
+//   return [].concat(this.triangle, this.walls)
+// }
+
+// Game.prototype.moveObjects = function moveObjects(delta) {
+//   this.allObjects().forEach(function(object) {
+//     object.move(delta);
+//   });
+// };
+
+Game.prototype.add = function add(object){
+  if (object instanceof Triangle){
+    this.triangle.push(object);
+  }
 }
 
-// Game.prototype.add = function add(object){
-//   switch (object){
-//     case (object instanceof Triangle):
-//       this.triangle.push(object); // adds Triangle to the game
-//       break;
-//   }
+// Game.prototype.remove = function remove(object){
+
 // }
 
-// Game.prototype.addTriangle = function addTriangle() {
-//   const triangle = new Triangle({
-//     pos: [500,500],
-//     game: this
-//   });
+Game.prototype.addTriangle = function addTriangle() {
+  const triangle = new Triangle({
+    pos: [500,500],
+    game: this
+  });
 
-//   this.add(triangle);
-
-//   return triangle;
-// }
 
 module.exports = Game;
