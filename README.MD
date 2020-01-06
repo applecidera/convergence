@@ -1,9 +1,9 @@
 # Hexa-Evolution
 
-## 1 Background & Overview
+## 1. Background & Overview
 Hexa-Evolution will be a limited movement survival game in which the player will control a Triangle on a 2d plane. Player controls will be limited to Left-Arrow and Right-Arrow which will move the triangle counter-clockwise and clockwise respectively about a center pivot point. Players will need to move the Triangle in order to avoid incoming shapes that are moving towards the center pivot point. The goal of the game is to not touch any of the moving shapes for 60 seconds.
 
-## 2 Functionality & MVPs
+## 2. Functionality & MVPs
 In Hexa-Evolution users will be able to:
 1. Interact with the game via a game view port and control a triangle
 2. Use the left or right arrow keys to move the Triangle clockwise and counter-clockwise
@@ -14,14 +14,15 @@ In Hexa-Evolution users will be able to:
 * Bonus - Implement wall patterns with increasing difficulty as game goes on
 * Bonus - Implement high-score system that tracks longest surviving time
 
-## 3 Wireframes
+## 3. Wireframes
+<img src="https://raw.githubusercontent.com/applecidera/hexa-evolution/master/assets/hexa-evolution-wireframe.png"/>
 
 
-## 4 Architecture and Technology
+## 4. Architecture and Technology
 Hexa-Evolution will be rendered with and animated via 3js api. Game logic will be coded with pure Javascript. Local server will be run on Express. Node modules will be bundled and packaged with WebPack.
 * Bonus - MongoDB can be used to keep track of high scores
 
-## 5 Implementation Timeline
+## 5. Implementation Timeline
 
 #### Day 1
 * MVP 1 - Boilerplate and Learn how to render shapes via 3js.
