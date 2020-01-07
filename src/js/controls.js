@@ -15,6 +15,8 @@ function Controls(){
   this.enablePlayerControls = this.enablePlayerControls.bind(this);
   this.keyDown = this.keyDown.bind(this);
   this.keyUp = this.keyUp.bind(this);
+  this.startGame = this.startGame.bind(this);
+  this.gameOver = this.gameOver.bind(this);
 }
 
 Controls.prototype.enablePlayerControls = function(){
@@ -65,14 +67,16 @@ Controls.prototype.keyUp = function(e) {
   }
 }
 
-// ! Not Working
 Controls.prototype.startGame = function(e) {
   if (e.code === "Space") this.enablePlayerControls();
+  clearInterval(this.clockwise);
 }
 
 Controls.prototype.gameOver = function() {
   this.disablePlayerControls();
-  this.enablePlayerControls();
+  this.clockwise = setInterval(() => {
+    this.degrees += this.cursorSpeed / 2;  
+  }, (1000/60) );
 }
 
 module.exports = Controls;

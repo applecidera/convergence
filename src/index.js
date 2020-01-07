@@ -2,6 +2,21 @@ import './styles/index.scss';
 import Game from './js/game';
 import Controls from './js/controls';
 
+let DIM_X = 768;
+let DIM_Y = 768;
+
+let canvas = document.getElementById('stage');
+canvas.width = DIM_X;
+canvas.height = DIM_Y;
+let ctx = canvas.getContext('2d');
+
+const controls = new Controls();
+controls.gameOver();
+
+// instantiate game
+// const game = new Game(ctx);
+// game.gameOver();
+
 // Game Constants
 const sunMap = new Image();
 const cursor = new Image();
@@ -10,7 +25,6 @@ const warpGate2 = new Image();
 const warpGate3 = new Image();
 const warpGate = [warpGate1, warpGate2, warpGate3];
 let warpGateIndex = 0;
-let degrees = 0;
 
 function init() {
   sunMap.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
@@ -25,14 +39,7 @@ function init() {
   }, 500);
 }
 
-let DIM_X = 768;
-let DIM_Y = 768;
 
-let canvas = document.getElementById('stage');
-  
-canvas.width = DIM_X;
-canvas.height = DIM_Y;
-let ctx = canvas.getContext('2d');
 
 
 function draw() {
@@ -62,8 +69,5 @@ function draw() {
 
   window.requestAnimationFrame(draw);
 }
-
-const controls = new Controls();
-controls.gameOver();
 
 init();
