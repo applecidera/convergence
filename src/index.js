@@ -12,15 +12,27 @@ import './styles/index.scss';
 // new ViewPort(game, ctx).start();
 // console.log("hello");
 
-
+// Game Constants
 const sunMap = new Image();
 const cursor = new Image();
+const warpGate1 = new Image();
+const warpGate2 = new Image();
+const warpGate3 = new Image();
+const warpGate = [warpGate1, warpGate2, warpGate3];
+let warpGateIndex = 0;
 let degrees = 0;
 
 function init() {
   sunMap.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
-  cursor.src = 'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/cursor_rotated.png';
+  cursor.src = 'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/pixel_ship_red_small_2.png';
+  warpGate1.src = 'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/warpgate_1.png';
+  warpGate2.src = 'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/warpgate_2.png';
+  warpGate3.src = 'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/warpgate_3.png';
   window.requestAnimationFrame(draw);
+  setInterval(() => {
+    warpGateIndex += 1;
+    if (warpGateIndex === 3) warpGateIndex = 0;
+  }, 500);
 }
 
 let DIM_X = 768;
@@ -32,14 +44,8 @@ canvas.width = DIM_X;
 canvas.height = DIM_Y;
 let ctx = canvas.getContext('2d');
 
-document.addEventListener('keydown', logKey);
-
-function logKey(e) {
-  console.log(e.code);
-}
 
 function draw() {
-  degrees += 2;
 
   ctx.globalCompositeOperation = 'destination-over';
   ctx.clearRect(0, 0, DIM_X, DIM_Y); // clear canvas
@@ -52,18 +58,69 @@ function draw() {
   // Cursor
   
   ctx.rotate(((2 * Math.PI) / 360) * (degrees % 360));
-  ctx.translate(85, 0);
-  ctx.drawImage(cursor, -12, -12);
+  ctx.translate(105, 0);
+  ctx.drawImage(cursor, 0,-35);
 
   ctx.restore();
   
-  ctx.beginPath();
-  ctx.arc(DIM_X/2, DIM_Y/2, 105, 0, Math.PI * 2, false); // Earth orbit
-  ctx.stroke();
+  // ctx.beginPath();
+  // ctx.arc(DIM_X/2, DIM_Y/2, 105, 0, Math.PI * 2, false); // Earth orbit
+  // ctx.stroke();
+
+  ctx.drawImage(warpGate[warpGateIndex], DIM_X/4 + 100, DIM_Y/4 + 100,DIM_X/4, DIM_Y/4)
  
   ctx.drawImage(sunMap, 0, 0, DIM_X, DIM_Y);
 
   window.requestAnimationFrame(draw);
+}
+
+
+// player controls
+
+const controls = {
+  left: {active: false},
+  right: {active: false}
+}
+
+document.addEventListener('keydown', keyDown);
+document.addEventListener('keyup', keyUp);
+
+let clockwise;
+let cclockwise;
+let cursorSpeed = 3;
+
+function keyDown(e) {;
+  switch (e.code) {
+    case "ArrowRight":
+      if (!controls.right.active){
+        controls.right.active = true;
+        clockwise = setInterval(() => {
+          degrees += cursorSpeed;  
+        }, (1000/60) );
+      }
+      break;
+    case "ArrowLeft":
+      if (!controls.left.active){
+        controls.left.active = true;
+        cclockwise = setInterval(() => {
+          degrees -= cursorSpeed;  
+        }, (1000/60) );
+      }
+      break;
+  }
+}
+
+function keyUp(e) {;
+  switch (e.code) {
+    case "ArrowRight":
+      controls.right.active = false;
+      clearInterval(clockwise);
+      break;
+    case "ArrowLeft":
+      controls.left.active = false;
+      clearInterval(cclockwise);
+      break;
+  }
 }
 
 init();
