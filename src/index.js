@@ -21,7 +21,7 @@ let degrees = 0;
 function init() {
   sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
   moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
-  earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
+  earth.src = 'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/cursor.png';
   window.requestAnimationFrame(draw);
 }
 
