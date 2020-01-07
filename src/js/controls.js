@@ -1,47 +1,78 @@
+
 // player controls
+function Controls(){
+  this.degrees = 0;
+  this.controls = {
+    left: {active: false},
+    right: {active: false}
+  }
+  this.clockwise = 0
+  this.cclockwise = 0
+  this.cursorSpeed = 3;
 
-const controls = {
-  left: {active: false},
-  right: {active: false}
+
+  this.disablePlayerControls = this.disablePlayerControls.bind(this);
+  this.enablePlayerControls = this.enablePlayerControls.bind(this);
+  this.keyDown = this.keyDown.bind(this);
+  this.keyUp = this.keyUp.bind(this);
 }
 
-document.addEventListener('keydown', keyDown);
-document.addEventListener('keyup', keyUp);
+Controls.prototype.enablePlayerControls = function(){
+  document.removeEventListener('keydown', this.startGame);
+  
+  document.addEventListener('keydown', this.keyDown);
+  document.addEventListener('keyup', this.keyUp);
+}
 
-let clockwise;
-let cclockwise;
-let cursorSpeed = 3;
+Controls.prototype.disablePlayerControls = function(){
+  document.removeEventListener('keydown', this.keyDown);
+  document.removeEventListener('keyup', this.keyUp);
 
-function keyDown(e) {;
+  document.addEventListener('keydown', this.startGame);
+}
+
+Controls.prototype.keyDown = function(e) {
   switch (e.code) {
     case "ArrowRight":
-      if (!controls.right.active){
-        controls.right.active = true;
-        clockwise = setInterval(() => {
-          degrees += cursorSpeed;  
+      if (!this.controls.right.active){
+        this.controls.right.active = true;
+        this.clockwise = setInterval(() => {
+          this.degrees += this.cursorSpeed;  
         }, (1000/60) );
       }
       break;
     case "ArrowLeft":
-      if (!controls.left.active){
-        controls.left.active = true;
-        cclockwise = setInterval(() => {
-          degrees -= cursorSpeed;  
+      if (!this.controls.left.active){
+        this.controls.left.active = true;
+        this.cclockwise = setInterval(() => {
+          this.degrees -= this.cursorSpeed;  
         }, (1000/60) );
       }
       break;
   }
 }
 
-function keyUp(e) {;
+Controls.prototype.keyUp = function(e) {
   switch (e.code) {
     case "ArrowRight":
-      controls.right.active = false;
-      clearInterval(clockwise);
+      this.controls.right.active = false;
+      clearInterval(this.clockwise);
       break;
     case "ArrowLeft":
-      controls.left.active = false;
-      clearInterval(cclockwise);
+      this.controls.left.active = false;
+      clearInterval(this.cclockwise);
       break;
   }
 }
+
+// ! Not Working
+Controls.prototype.startGame = function(e) {
+  if (e.code === "Space") this.enablePlayerControls();
+}
+
+Controls.prototype.gameOver = function() {
+  this.disablePlayerControls();
+  this.enablePlayerControls();
+}
+
+module.exports = Controls;

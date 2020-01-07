@@ -1,16 +1,6 @@
 import './styles/index.scss';
-
-// const Game = require('./js/game');
-// const ViewPort = require('./js/viewport')
-
-// const canvas = document.getElementById("stage");
-// canvas.width = Game.DIM_X;
-// canvas.height = Game.DIM_Y;
-
-// const ctx = canvas.getContext("2d");
-// const game = new Game();
-// new ViewPort(game, ctx).start();
-// console.log("hello");
+import Game from './js/game';
+import Controls from './js/controls';
 
 // Game Constants
 const sunMap = new Image();
@@ -56,71 +46,24 @@ function draw() {
   ctx.translate(DIM_X/2, DIM_Y/2);
 
   // Cursor
-  
-  ctx.rotate(((2 * Math.PI) / 360) * (degrees % 360));
+  ctx.rotate(((2 * Math.PI) / 360) * (controls.degrees % 360));
   ctx.translate(105, 0);
   ctx.drawImage(cursor, 0,-35);
 
   ctx.restore();
   
-  // ctx.beginPath();
-  // ctx.arc(DIM_X/2, DIM_Y/2, 105, 0, Math.PI * 2, false); // Earth orbit
-  // ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(DIM_X/2, DIM_Y/2, 105, 0, Math.PI * 2, false); // Earth orbit
+  ctx.stroke();
 
-  ctx.drawImage(warpGate[warpGateIndex], DIM_X/4 + 100, DIM_Y/4 + 100,DIM_X/4, DIM_Y/4)
+  ctx.drawImage(warpGate[warpGateIndex], DIM_X/4 + 97.5, DIM_Y/4 + 97.5,DIM_X/4, DIM_Y/4)
  
   ctx.drawImage(sunMap, 0, 0, DIM_X, DIM_Y);
 
   window.requestAnimationFrame(draw);
 }
 
-
-// player controls
-
-const controls = {
-  left: {active: false},
-  right: {active: false}
-}
-
-document.addEventListener('keydown', keyDown);
-document.addEventListener('keyup', keyUp);
-
-let clockwise;
-let cclockwise;
-let cursorSpeed = 3;
-
-function keyDown(e) {;
-  switch (e.code) {
-    case "ArrowRight":
-      if (!controls.right.active){
-        controls.right.active = true;
-        clockwise = setInterval(() => {
-          degrees += cursorSpeed;  
-        }, (1000/60) );
-      }
-      break;
-    case "ArrowLeft":
-      if (!controls.left.active){
-        controls.left.active = true;
-        cclockwise = setInterval(() => {
-          degrees -= cursorSpeed;  
-        }, (1000/60) );
-      }
-      break;
-  }
-}
-
-function keyUp(e) {;
-  switch (e.code) {
-    case "ArrowRight":
-      controls.right.active = false;
-      clearInterval(clockwise);
-      break;
-    case "ArrowLeft":
-      controls.left.active = false;
-      clearInterval(cclockwise);
-      break;
-  }
-}
+const controls = new Controls();
+controls.gameOver();
 
 init();

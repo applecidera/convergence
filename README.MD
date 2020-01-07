@@ -19,8 +19,8 @@ In Convergence users will be able to:
 
 
 ## 4. Architecture and Technology
-Convergence will be rendered with and animated via canvas. Game logic will be coded with pure Javascript. Local server will be run on Express. Node modules will be bundled and packaged with WebPack.
-* Bonus - MongoDB can be used to keep track of high scores
+Convergence will be rendered with and animated via canvas. Game logic will be coded with pure Javascript. Node modules will be bundled and packaged with WebPack.
+* Bonus - GoogleFirebase can be used to keep track of high scores
 
 ## 5. Implementation Timeline
 
