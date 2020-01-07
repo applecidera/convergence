@@ -2,7 +2,7 @@ const Cursor = require('./cursor');
 
 function Game() {
 	this.cursor = [];
-	this.walls = [];
+	// this.walls = [];
 }
 
 Game.DIM_X = 1024;

@@ -1,10 +1,10 @@
-# Hexa-Evolution
+# Convergence
 
 ## 1. Background & Overview
-Hexa-Evolution will be a limited movement survival game in which the player will control a Cursor on a 2d plane. Player controls will be limited to Left-Arrow and Right-Arrow which will move the cursor counter-clockwise and clockwise respectively about a center pivot point. Players will need to move the cursor in order to avoid incoming shapes that are moving towards the center pivot point. The goal of the game is to not touch any of the moving shapes for 60 seconds.
+Convergence will be a limited movement survival game in which the player will control a Cursor on a 2d plane. Player controls will be limited to Left-Arrow and Right-Arrow which will move the cursor counter-clockwise and clockwise respectively about a center pivot point. Players will need to move the cursor in order to avoid incoming shapes that are moving towards the center pivot point. The goal of the game is to not touch any of the moving shapes for 60 seconds.
 
 ## 2. Functionality & MVPs
-In Hexa-Evolution users will be able to:
+In Convergence users will be able to:
 1. Interact with the game via a game view port and control a cursor
 2. Use the left or right arrow keys to move the cursor clockwise and counter-clockwise
 3. Be able to see and dodge moving walls that converge towards the center pivot point
@@ -19,15 +19,15 @@ In Hexa-Evolution users will be able to:
 
 
 ## 4. Architecture and Technology
-Hexa-Evolution will be rendered with and animated via 3js api. Game logic will be coded with pure Javascript. Local server will be run on Express. Node modules will be bundled and packaged with WebPack.
+Convergence will be rendered with and animated via canvas. Game logic will be coded with pure Javascript. Local server will be run on Express. Node modules will be bundled and packaged with WebPack.
 * Bonus - MongoDB can be used to keep track of high scores
 
 ## 5. Implementation Timeline
 
 #### Day 1
-* MVP 1 - Boilerplate and Learn how to render shapes via 3js.
+* MVP 1 - Boilerplate and Learn how to render shapes via canvas.
 #### Day 2
-* MVP 2 - Learn how to animate and use keyboard to move cursor in 3js
+* MVP 2 - Learn how to animate and use keyboard to move cursor in canvas
 #### Day 3
 * MVP 3 - Create rectangles (walls) and move them towards the center pivot-point
 #### Day 4
