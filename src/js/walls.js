@@ -4,6 +4,7 @@ function Wall(octant){
   this.sprite = new Image();
   this.speed = 4;
   this.octantLogic(octant);
+  this.sprite.src = "https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/thruster-2.png";
 }
 
 Wall.prototype.octantLogic = function(octant){
@@ -14,50 +15,41 @@ Wall.prototype.octantLogic = function(octant){
       this.pos = [0,384];
       this.xoffset = 0;
       this.yoffset = 0;
-      this.degreeRotation = 0;
       break;
     case 1:
       this.pos = [0,0];
       this.xoffset = 0;
       this.yoffset = 0;
-      this.degreeRotation = 0;
       break;
     case 2:
       this.pos = [384,0];
       this.xoffset = 0;
       this.yoffset = 0;
-      this.degreeRotation = 0;
-      this.sprite.src = "https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/thruster-2.png"
       break;
     case 3:
       this.pos = [768,0];
       this.xoffset = 0;
       this.yoffset = 0;
-      this.degreeRotation = 40;
       break;
     case 4:
       this.pos = [768,384];
       this.xoffset = 0;
       this.yoffset = 0;
-      this.degreeRotation = 0;
       break;
     case 5:
       this.pos = [768,768];
       this.xoffset = 0;
       this.yoffset = 0;
-      this.degreeRotation = 0;
       break;
     case 6:
       this.pos = [384,768];
       this.xoffset = 0;
       this.yoffset = 0;
-      this.degreeRotation = 0;
       break;
     case 7:
       this.pos = [0,768];
       this.xoffset = 0;
       this.yoffset = 0;
-      this.degreeRotation = 0;
       break;
   }
 }
