@@ -1,5 +1,6 @@
 const Controls = require('./controls');
 const Cursor = require('./cursor');
+const Wave = require('./wave');
 
 // initializer
 function Game(context) {
@@ -41,7 +42,7 @@ Game.prototype.logic = function(frameInterval){
 	this.timerCounter(frameInterval);
 
 	// TODO uncomment when finished
-	// this.waveLogic(frameInterval);
+	this.waveLogic(frameInterval);
 	// this.waveMovement();
 }
 
@@ -59,9 +60,9 @@ Game.prototype.draw = function(){
 	this.ctx.restore();
 
 	// Waves
-	// this.waves.forEach((wave){
-	// 	wave.draw();
-	// })
+	this.waves.forEach((wave)=>{
+		wave.draw(ctx);
+	})
 
   // Earth orbit
   this.ctx.beginPath();
@@ -77,15 +78,12 @@ Game.prototype.draw = function(){
 }
 
 Game.prototype.addCursor = function(){
-	// or make a variable cursor, add to an "add function that parses by object type so you can add different types of objects?"
 	this.cursor = new Cursor();
-
 	return this.cursor;
 }
 
 Game.prototype.addControls = function(){
 	this.controls = new Controls(this);
-
 	return this.controls;
 }
 
@@ -107,13 +105,11 @@ Game.prototype.addWave = function(frameInterval){
 }
 
 Game.prototype.removeWave = function(){
-	const {waves} = this;
-	waves.forEach((wave)=>{
-		wave.remove();
-	})
+	// shifts off wave in FIFO
+	this.waves.shift();
 }
 
-Game.prototype.waveLogic = function(){
+Game.prototype.waveLogic = function(frameInterval){
 	this.addWave(frameInterval);
 
 	const {waves} = this;

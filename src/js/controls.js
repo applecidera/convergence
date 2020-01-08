@@ -14,9 +14,7 @@ function Controls(game){
   this.startGame = this.startGame.bind(this);
   this.gameOver = this.gameOver.bind(this);
   this.bigLogo = document.getElementsByClassName("start-game-logo");
-  // this.bigLogo[0].classList.remove("start-game-logo");
   this.smallLogo = document.getElementsByClassName("title-box");
-  // this.smallLogo[0].classList.remove("title-box-fade-out");
   this.gameInfo = document.getElementsByClassName("start-game-info");
 }
 

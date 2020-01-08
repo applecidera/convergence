@@ -68,6 +68,12 @@ body {
     justify-content: flex-end;
   }
 
+  .timer{
+      width: 50px;
+      margin-right: 20px;
+      text-align: left;
+    }
+
   .start-game-logo{
     grid-column: 1/3;
     grid-row: 1/3;
@@ -88,8 +94,9 @@ body {
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    
     span{
-      margin-top: 350px;
+      
       font-size: 16px;
     }
   }
@@ -120,6 +127,8 @@ body {
     span{
       margin-top: 350px;
       font-size: 16px;
+      animation: fade 1.5s ease-in alternate forwards infinite;
+      margin-bottom: 150px;
     }
     animation: fade 1s ease-in reverse;
   }

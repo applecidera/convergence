@@ -1,5 +1,5 @@
 function Cursor(context) {
-  this.degrees = 0; 
+  this.degrees = -90; 
   this.cursorSpeed = 5;
   this.position = [];
   this.cursor = new Image();
