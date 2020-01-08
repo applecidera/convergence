@@ -11,17 +11,18 @@ function GameStage (context, game) {
 }
 
 GameStage.prototype.ticker = function(){
-  
-  //Stepper
-  let curTime = Date.now();
-  let timeDif = curTime - this.setTime;
+  const {frameInterval, setTime} = this;
 
-  // skip logic and draw if not time yet
-  if (timeDif >= this.frameInterval){
-    this.game.logic();
+
+  // time-limit
+  let curTime = Date.now();
+  let timeDif = curTime - setTime;
+
+  // frame limiter
+  if (timeDif >= frameInterval && !this.game.isGameOver){
+    this.game.logic(frameInterval);
     this.game.draw();
     this.setTime = curTime;
-    this.setTime = curTime
   }
 
   window.requestAnimationFrame(this.ticker.bind(this));

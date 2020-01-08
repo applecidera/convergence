@@ -5,11 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="./dist/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Orbitron&display=swap" rel="stylesheet">
   <script src="./dist/main.js" defer></script>
   <title>Convergence
   </title>
 </head>
 <body>
-  <canvas id="stage"/>
+  <div class="stage-container">
+    <canvas id="stage"></canvas>
+    <div class="overlay">
+      <div class="start-game-logo">
+        <span>Convergence</span>
+      </div>
+      <div class="start-game-info">
+        <span>Press Space to begin</span>
+        <div>Use Left and Right arrow keys to dodge</div>
+      </div>
+      <div class="title-box"><span>Convergence</span></div>
+      <div class="timer-box"><span>Time: </span><span class="timer">0</span></div>
+    </div>
+  </div>
 </body>
 </html>

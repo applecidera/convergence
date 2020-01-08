@@ -1,6 +1,7 @@
 
 // player controls
-function Controls(){
+function Controls(game){
+  this.game = game;
   this.degrees = 0;
   this.state = {
     left: {active: false},
@@ -12,6 +13,9 @@ function Controls(){
   this.keyUp = this.keyUp.bind(this);
   this.startGame = this.startGame.bind(this);
   this.gameOver = this.gameOver.bind(this);
+  this.bigLogo = document.getElementsByClassName("start-game-logo");
+  this.smallLogo = document.getElementsByClassName("title-box");
+  this.gameInfo = document.getElementsByClassName("start-game-info");
 }
 
 Controls.prototype.enablePlayerControls = function(){
@@ -33,20 +37,11 @@ Controls.prototype.keyDown = function(e) {
     case "ArrowRight":
       if (!this.state.right.active){
         this.state.right.active = true;
-        // this.clockwise = setInterval(() => {
-        //   this.degrees += this.cursorSpeed;  
-        // }, (1000/60) );
-
-        // call cursor.moveCursor("clockwise")
       }
       break;
     case "ArrowLeft":
       if (!this.state.left.active){
         this.state.left.active = true;
-        // this.cclockwise = setInterval(() => {
-        //   this.degrees -= this.cursorSpeed;  
-        // }, (1000/60) );
-        // call cursor.moveCursor("cclockwise")
       }
       break;
   }
@@ -56,25 +51,33 @@ Controls.prototype.keyUp = function(e) {
   switch (e.code) {
     case "ArrowRight":
       this.state.right.active = false;
-      // clearInterval(this.clockwise);
       break;
     case "ArrowLeft":
       this.state.left.active = false;
-      // clearInterval(this.cclockwise);
       break;
   }
 }
 
 Controls.prototype.startGame = function(e) {
   if (e.code === "Space") this.enablePlayerControls();
-  clearInterval(this.clockwise);
+  this.game.startNewGame();
+  this.bigLogo[0].classList.remove("start-game-logo-fade-in");
+  this.bigLogo[0].classList.add("start-game-logo-fade-out");
+  this.smallLogo[0].classList.remove("title-box-fade-in");
+  this.smallLogo[0].classList.add("title-box-fade-out");
+  this.gameInfo[0].classList.remove("start-game-info-fade-in");
+  this.gameInfo[0].classList.add("start-game-info-fade-out");
 }
 
 Controls.prototype.gameOver = function() {
   this.disablePlayerControls();
-  this.clockwise = setInterval(() => {
-    this.degrees += this.cursorSpeed / 2;  
-  }, (1000/60) );
+  this.game.gameOver();
+  this.bigLogo[0].classList.remove("start-game-logo-fade-out");
+  this.bigLogo[0].classList.add("start-game-logo-fade-in");
+  this.smallLogo[0].classList.remove("title-box-fade-out");
+  this.smallLogo[0].classList.add("title-box-fade-in");
+  this.gameInfo[0].classList.remove("start-game-info-fade-out");
+  this.gameInfo[0].classList.add("start-game-info-fade-in");
 }
 
 module.exports = Controls;

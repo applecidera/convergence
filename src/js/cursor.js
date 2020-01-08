@@ -1,5 +1,5 @@
 function Cursor(context) {
-  this.degrees = 0; 
+  this.degrees = -90; 
   this.cursorSpeed = 5;
   this.position = [];
   this.cursor = new Image();
@@ -19,7 +19,7 @@ Cursor.prototype.moveCursor = function(direction){
 }
 
 Cursor.prototype.collisionDetect = function(){
-  // some sort of hitbox logic
+  // TODO some sort of hitbox logic
 }
 
 Cursor.prototype.draw = function(ctx, dim_x, dim_y){

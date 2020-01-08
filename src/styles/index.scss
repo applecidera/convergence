@@ -1,14 +1,11 @@
 
 canvas{
-  background-color: blue;
+  background-color: rgba($color: #181818, $alpha: .4);
 }
 
-
-
-body{
+body {
   width: 100vw;
   height: 100vh;
-  
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -16,4 +13,153 @@ body{
   justify-content: center;
   align-items: center;
   background-color: black;
+  font-family: 'Orbitron', sans-serif;
 }
+
+.stage-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 768px;
+  height: 768px;
+}
+
+.overlay {
+  position: absolute;
+  display: grid;
+  grid-template: 1fr 1fr / 1fr 1fr;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  }
+
+  .title-box{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .title-box-fade-in{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    animation: fade 1s ease-in reverse;
+  }
+  .title-box-fade-out{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    animation: fade 1s ease-in forwards;
+  }
+
+  .timer-box{
+    grid-column: 2/3;
+    grid-row: 1/2;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .timer{
+      width: 50px;
+      margin-right: 20px;
+      text-align: left;
+    }
+
+  .start-game-logo{
+    grid-column: 1/3;
+    grid-row: 1/3;
+    color: white;
+    display: flex;
+    justify-content: center;
+    span{
+      margin-top: 150px;
+      font-size: 64px;
+    }
+  }
+
+  .start-game-info{
+    grid-column: 1/3;
+    grid-row: 1/3;
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+    span{
+      
+      font-size: 16px;
+    }
+  }
+
+  .start-game-info-fade-out{
+    grid-column: 1/3;
+    grid-row: 1/3;
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    span{
+      margin-top: 350px;
+      font-size: 16px;
+    }
+    animation: fade 1s ease-in forwards;
+  }
+
+  .start-game-info-fade-in{
+    grid-column: 1/3;
+    grid-row: 1/3;
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    span{
+      margin-top: 350px;
+      font-size: 16px;
+      animation: fade 1.5s ease-in alternate forwards infinite;
+      margin-bottom: 150px;
+    }
+    animation: fade 1s ease-in reverse;
+  }
+
+  .start-game-logo-fade-out{
+    grid-column: 1/3;
+    grid-row: 1/3;
+    color: white;
+    display: flex;
+    justify-content: center;
+    span{
+      margin-top: 150px;
+      font-size: 64px;
+    }
+    animation: fade 1s ease-in forwards;
+  }
+
+  .start-game-logo-fade-in{
+    grid-column: 1/3;
+    grid-row: 1/3;
+    color: white;
+    display: flex;
+    justify-content: center;
+    span{
+      margin-top: 150px;
+      font-size: 64px;
+    }
+    animation: fade 1s ease-in reverse;
+  }
+
+  @keyframes fade{
+    from{opacity: 1;}
+    to{opacity: 0;}
+  }
