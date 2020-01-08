@@ -9,6 +9,7 @@ function Game(context) {
 	this.elapsedTime = 0;
 	this.waves = [];
 	this.waveInterval = 0;
+	this.difficulty = "easy";
 	this.gameState = false;
 	this.sunMap = new Image();
 	this.warpGate1 = new Image();
@@ -34,7 +35,9 @@ Game.prototype.logic = function(frameInterval){
 		cursor.moveCursor("clockwise");
 	}
 
-	this.addWave(frameInterval);
+	// TODO uncomment when finished
+	// this.waveLogic(frameInterval);
+	// this.waveMovement();
 }
 
 Game.prototype.draw = function(){
@@ -44,20 +47,26 @@ Game.prototype.draw = function(){
   ctx.fillStyle = 'blue';
   ctx.strokeStyle = 'blue';
 	ctx.save();
-	
+
+	// Cursor
 	this.cursor.draw(ctx, dim_x, dim_y)
 
 	this.ctx.restore();
+
+	// Waves
+	// this.waves.forEach((wave){
+	// 	wave.draw();
+	// })
 
   // Earth orbit
   this.ctx.beginPath();
   this.ctx.arc(dim_x/2, dim_y/2, 105, 0, Math.PI * 2, false); 
 	this.ctx.stroke();
 	
-	// warpgate
+	// Warpgate
 	this.ctx.drawImage(warpGate[warpGateIndex], dim_x/4 + 97.5, dim_y/4 + 97.5,dim_x/4, dim_y/4)
 	
-	// map
+	// Map
   this.ctx.drawImage(sunMap, 0, 0, dim_x, dim_y);
 
 }
@@ -79,7 +88,8 @@ Game.prototype.addWave = function(frameInterval){
 	const {elapsedTime, waveInterval} = this;
 	if (elapsedTime > waveInterval){
 		// TODO launch next wave
-		// reset elapsedTime
+		let newWave = new Wave(this.difficulty);
+		this.waves.push(newWave);
 		this.elapsedTime = 0;
 		// TODO create new waveInterval based on difficulty
 		this.waveInterval = 10 * 1000;
@@ -89,10 +99,22 @@ Game.prototype.addWave = function(frameInterval){
 
 	// increment elapsedTime
 	this.elapsedTime += frameInterval;
-
 }
-Game.prototype.removeWave = function(){
 
+Game.prototype.removeWave = function(){
+	const {waves} = this;
+	waves.forEach((wave)=>{
+		wave.remove();
+	})
+}
+
+Game.prototype.waveLogic = function(){
+	this.addWave(frameInterval);
+
+	const {waves} = this;
+	waves.forEach((wave)=>{
+		wave.move();
+	})
 }
 
 Game.prototype.timer = function(){
