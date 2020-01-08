@@ -2,15 +2,10 @@
 // player controls
 function Controls(){
   this.degrees = 0;
-  this.controls = {
+  this.state = {
     left: {active: false},
     right: {active: false}
   }
-  this.clockwise = 0
-  this.cclockwise = 0
-  this.cursorSpeed = 3;
-
-
   this.disablePlayerControls = this.disablePlayerControls.bind(this);
   this.enablePlayerControls = this.enablePlayerControls.bind(this);
   this.keyDown = this.keyDown.bind(this);
@@ -36,19 +31,22 @@ Controls.prototype.disablePlayerControls = function(){
 Controls.prototype.keyDown = function(e) {
   switch (e.code) {
     case "ArrowRight":
-      if (!this.controls.right.active){
-        this.controls.right.active = true;
-        this.clockwise = setInterval(() => {
-          this.degrees += this.cursorSpeed;  
-        }, (1000/60) );
+      if (!this.state.right.active){
+        this.state.right.active = true;
+        // this.clockwise = setInterval(() => {
+        //   this.degrees += this.cursorSpeed;  
+        // }, (1000/60) );
+
+        // call cursor.moveCursor("clockwise")
       }
       break;
     case "ArrowLeft":
-      if (!this.controls.left.active){
-        this.controls.left.active = true;
-        this.cclockwise = setInterval(() => {
-          this.degrees -= this.cursorSpeed;  
-        }, (1000/60) );
+      if (!this.state.left.active){
+        this.state.left.active = true;
+        // this.cclockwise = setInterval(() => {
+        //   this.degrees -= this.cursorSpeed;  
+        // }, (1000/60) );
+        // call cursor.moveCursor("cclockwise")
       }
       break;
   }
@@ -57,12 +55,12 @@ Controls.prototype.keyDown = function(e) {
 Controls.prototype.keyUp = function(e) {
   switch (e.code) {
     case "ArrowRight":
-      this.controls.right.active = false;
-      clearInterval(this.clockwise);
+      this.state.right.active = false;
+      // clearInterval(this.clockwise);
       break;
     case "ArrowLeft":
-      this.controls.left.active = false;
-      clearInterval(this.cclockwise);
+      this.state.left.active = false;
+      // clearInterval(this.cclockwise);
       break;
   }
 }

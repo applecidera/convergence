@@ -1,42 +1,30 @@
-// import Controls from './controls';
-const Controls = require('./controls');
 
 function GameStage (context, game) {
   this.ctx = context;
   this.game = game;
-  this.controls = new Controls();
   this.frameRate = 60;
   this.frameInterval = 1000/this.frameRate;
+  this.setTime = 0;
+  this.cursor = this.game.addCursor();
+  this.controls = this.game.addControls();
   this.controls.gameOver();
 }
 
 GameStage.prototype.ticker = function(){
-	// draws stuff in set intervals
-  this.ctx.clearRect(0, 0, this.dim_x, this.dim_y); // clear canvas
-
-  this.ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-  this.ctx.strokeStyle = 'rgba(0, 153, 255, 0.4)';
-  this.ctx.save();
-  this.ctx.translate(this.dim_x/2, this.dim_y/2);
-
-  // Cursor
-  this.ctx.rotate(((2 * Math.PI) / 360) * (this.controls.degrees % 360));
-  this.ctx.translate(105, 0);
-  this.ctx.drawImage(cursor, 0,-35);
-
-  this.ctx.restore();
   
-  this.ctx.beginPath();
-  this.ctx.arc(this.dim_x/2, this.dim_y/2, 105, 0, Math.PI * 2, false); // Earth orbit
-  this.ctx.stroke();
+  //Stepper
+  let curTime = Date.now();
+  let timeDif = curTime - this.setTime;
 
-	// warpgate
-  this.ctx.drawImage(warpGate[warpGateIndex], this.dim_x/4 + 97.5, this.dim_y/4 + 97.5,this.dim_x/4, this.dim_y/4)
- 
-	// map
-  this.ctx.drawImage(sunMap, 0, 0, this.dim_x, this.dim_y);
+  // skip logic and draw if not time yet
+  if (timeDif >= this.frameInterval){
+    this.game.logic();
+    this.game.draw();
+    this.setTime = curTime;
+    this.setTime = curTime
+  }
 
-  window.requestAnimationFrame(ticker);
+  window.requestAnimationFrame(this.ticker.bind(this));
 }
 
 module.exports = GameStage;
