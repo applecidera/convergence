@@ -2,7 +2,6 @@
 function Wall(octant){
   this.octant = octant;
   this.sprite = new Image();
-  this.sprite.src = "https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/thruster-2.png"
   this.speed = 4;
   this.octantLogic(octant);
 }
@@ -28,12 +27,13 @@ Wall.prototype.octantLogic = function(octant){
       this.xoffset = 0;
       this.yoffset = 0;
       this.degreeRotation = 0;
+      this.sprite.src = "https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/thruster-2.png"
       break;
     case 3:
       this.pos = [768,0];
       this.xoffset = 0;
       this.yoffset = 0;
-      this.degreeRotation = 0;
+      this.degreeRotation = 40;
       break;
     case 4:
       this.pos = [768,384];
@@ -62,7 +62,7 @@ Wall.prototype.octantLogic = function(octant){
   }
 }
 
-Wall.prototype.move = function(){
+Wall.prototype.move = function(cursor){
   // TODO hitbox logic is actually coded here, return true if gameOver
   // may need to pass down degrees from cursor
 

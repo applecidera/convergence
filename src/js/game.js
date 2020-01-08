@@ -115,7 +115,7 @@ Game.prototype.waveLogic = function(frameInterval){
 	const {waves} = this;
 	waves.forEach((wave)=>{
 		// if any return true, call this.gameOver()
-		if (wave.move()) this.gameOver();
+		if (wave.move(this.cursor)) this.gameOver();
 	})
 }
 
