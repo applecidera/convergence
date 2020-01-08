@@ -6,6 +6,9 @@ function Game(context) {
 	this.ctx = context;
 	this.dim_x = 768;
 	this.dim_y = 768;
+	this.elapsedTime = 0;
+	this.waves = [];
+	this.waveInterval = 0;
 	this.gameState = false;
 	this.sunMap = new Image();
 	this.warpGate1 = new Image();
@@ -23,21 +26,23 @@ function Game(context) {
 	}, 500);
 }
 
-Game.prototype.logic = function(){
+Game.prototype.logic = function(frameInterval){
 	const {controls, cursor} = this;
 	if (controls.state.left.active){
 		cursor.moveCursor("cclockwise");
 	} else if (controls.state.right.active){
 		cursor.moveCursor("clockwise");
 	}
+
+	this.addWave(frameInterval);
 }
 
 Game.prototype.draw = function(){
 	const { dim_x, dim_y, ctx, warpGate, warpGateIndex, sunMap} = this;
 	ctx.clearRect(0, 0, dim_x, dim_y); // clear canvas
 
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-  ctx.strokeStyle = 'rgba(0, 153, 255, 0.4)';
+  ctx.fillStyle = 'blue';
+  ctx.strokeStyle = 'blue';
 	ctx.save();
 	
 	this.cursor.draw(ctx, dim_x, dim_y)
@@ -70,8 +75,33 @@ Game.prototype.addControls = function(){
 	return this.controls;
 }
 
+Game.prototype.addWave = function(frameInterval){
+	const {elapsedTime, waveInterval} = this;
+	if (elapsedTime > waveInterval){
+		// TODO launch next wave
+		// reset elapsedTime
+		this.elapsedTime = 0;
+		// TODO create new waveInterval based on difficulty
+		this.waveInterval = 10 * 1000;
+	} else {
+
+	}
+
+	// increment elapsedTime
+	this.elapsedTime += frameInterval;
+
+}
+Game.prototype.removeWave = function(){
+
+}
+
+Game.prototype.timer = function(){
+
+}
+
 Game.prototype.startNewGame = function(){
-	// initialize constants
+	this.elapsedTime = 0;
+	this.waves = [];
 }
 
 Game.prototype.gameOver = function(){

@@ -1,7 +1,7 @@
 
 function Wall(options){
   this.qudrant = options.qudrant;
-  this.pos = options.pos
+  
 }
 
 ctx.beginPath();

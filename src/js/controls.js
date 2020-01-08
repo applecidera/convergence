@@ -12,6 +12,8 @@ function Controls(){
   this.keyUp = this.keyUp.bind(this);
   this.startGame = this.startGame.bind(this);
   this.gameOver = this.gameOver.bind(this);
+  // this.bigLogo = document.getElementsByClassName("start-game-logo");
+  // this.smallLogo = document.getElementsByClassName("title-box");
 }
 
 Controls.prototype.enablePlayerControls = function(){
@@ -33,20 +35,11 @@ Controls.prototype.keyDown = function(e) {
     case "ArrowRight":
       if (!this.state.right.active){
         this.state.right.active = true;
-        // this.clockwise = setInterval(() => {
-        //   this.degrees += this.cursorSpeed;  
-        // }, (1000/60) );
-
-        // call cursor.moveCursor("clockwise")
       }
       break;
     case "ArrowLeft":
       if (!this.state.left.active){
         this.state.left.active = true;
-        // this.cclockwise = setInterval(() => {
-        //   this.degrees -= this.cursorSpeed;  
-        // }, (1000/60) );
-        // call cursor.moveCursor("cclockwise")
       }
       break;
   }
@@ -56,25 +49,27 @@ Controls.prototype.keyUp = function(e) {
   switch (e.code) {
     case "ArrowRight":
       this.state.right.active = false;
-      // clearInterval(this.clockwise);
       break;
     case "ArrowLeft":
       this.state.left.active = false;
-      // clearInterval(this.cclockwise);
       break;
   }
 }
 
 Controls.prototype.startGame = function(e) {
   if (e.code === "Space") this.enablePlayerControls();
-  clearInterval(this.clockwise);
+  // this.bigLogo.classList.remove("start-game-logo-fade-in");
+  // this.bigLogo.classList.add("start-game-logo-fade-out");
+  // this.smallLogo.classList.remove("title-box-fade-in");
+  // this.smallLogo.classList.add("title-box-fade-out");
 }
 
 Controls.prototype.gameOver = function() {
   this.disablePlayerControls();
-  this.clockwise = setInterval(() => {
-    this.degrees += this.cursorSpeed / 2;  
-  }, (1000/60) );
+  // this.bigLogo.classList.remove("start-game-logo-fade-out");
+  // this.bigLogo.classList.add("start-game-logo-fade-in");
+  // this.smallLogo.classList.remove("title-box-fade-out");
+  // this.smallLogo.classList.add("title-box-fade-in");
 }
 
 module.exports = Controls;
