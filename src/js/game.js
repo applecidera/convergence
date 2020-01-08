@@ -3,10 +3,12 @@ const Cursor = require('./cursor');
 
 // initializer
 function Game(context) {
+	this.isGameOver = true;
 	this.ctx = context;
 	this.dim_x = 768;
 	this.dim_y = 768;
 	this.elapsedTime = 0;
+	this.totalTimeElapsed = 0;
 	this.waves = [];
 	this.waveInterval = 0;
 	this.difficulty = "easy";
@@ -25,6 +27,7 @@ function Game(context) {
 		this.warpGateIndex += 1;
 		if (this.warpGateIndex === 3) this.warpGateIndex = 0;
 	}, 500);
+	this.timer = document.getElementsByClassName("timer");
 }
 
 Game.prototype.logic = function(frameInterval){
@@ -34,6 +37,8 @@ Game.prototype.logic = function(frameInterval){
 	} else if (controls.state.right.active){
 		cursor.moveCursor("clockwise");
 	}
+
+	this.timerCounter(frameInterval);
 
 	// TODO uncomment when finished
 	// this.waveLogic(frameInterval);
@@ -79,7 +84,7 @@ Game.prototype.addCursor = function(){
 }
 
 Game.prototype.addControls = function(){
-	this.controls = new Controls();
+	this.controls = new Controls(this);
 
 	return this.controls;
 }
@@ -113,21 +118,28 @@ Game.prototype.waveLogic = function(){
 
 	const {waves} = this;
 	waves.forEach((wave)=>{
-		wave.move();
+		// if any return true, call this.gameOver()
+		if (wave.move()) this.gameOver();
 	})
 }
 
-Game.prototype.timer = function(){
-
+Game.prototype.timerCounter = function(timeElapsed){
+	this.totalTimeElapsed += timeElapsed;
+	let roundedTime = ((Math.round(this.totalTimeElapsed/10))/100);
+	this.timer[0].innerHTML = roundedTime.toString();
+	
 }
 
 Game.prototype.startNewGame = function(){
 	this.elapsedTime = 0;
 	this.waves = [];
+	this.totalTimeElapsed = 0;
+	this.isGameOver = false;
 }
 
 Game.prototype.gameOver = function(){
-	// resets the playfield
+	// option to play again, calls start new game
+	this.isGameOver = true;
 }
 
 module.exports = Game;

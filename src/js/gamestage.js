@@ -14,12 +14,12 @@ GameStage.prototype.ticker = function(){
   const {frameInterval, setTime} = this;
 
 
-  //Stepper
+  // time-limit
   let curTime = Date.now();
   let timeDif = curTime - setTime;
 
-  // skip logic and draw if not time yet
-  if (timeDif >= frameInterval){
+  // frame limiter
+  if (timeDif >= frameInterval && !this.game.isGameOver){
     this.game.logic(frameInterval);
     this.game.draw();
     this.setTime = curTime;

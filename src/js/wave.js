@@ -17,7 +17,7 @@ function Wave(difficulty) {
   }
 }
 
-Wave.prototype.addWalls(difficulty){
+Wave.prototype.addWalls = function(difficulty){
   let walls = [];
 
   if (difficulty === "easy"){
@@ -32,13 +32,28 @@ Wave.prototype.addWalls(difficulty){
 
 Wave.prototype.move = function(){
   // TODO iterate thru each wall and set new coordinates, movement alowed based on elapsed time
+  // hitbox logic if any of the walls touch cursor, set gameOver = true
+  let gameOver = false;
 
   if (difficulty === "easy"){
     for (let i=0; i<8; i++){
-      this.walls[i].move;
+      if (this.walls[i].move()) gameOver = true;
     }
   }
 
+  return gameOver;
+}
+
+Wave.prototype.draw = function(){
+
+  if (difficulty === "easy"){
+    for (let i=0; i<8; i++){
+      let newWall = new Wall(i, pattern);
+      walls.push(newWall);
+    }
+  }
+
+  return walls;
 }
 
 module.exports = Wave;

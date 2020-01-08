@@ -1,6 +1,7 @@
 
 // player controls
-function Controls(){
+function Controls(game){
+  this.game = game;
   this.degrees = 0;
   this.state = {
     left: {active: false},
@@ -12,8 +13,11 @@ function Controls(){
   this.keyUp = this.keyUp.bind(this);
   this.startGame = this.startGame.bind(this);
   this.gameOver = this.gameOver.bind(this);
-  // this.bigLogo = document.getElementsByClassName("start-game-logo");
-  // this.smallLogo = document.getElementsByClassName("title-box");
+  this.bigLogo = document.getElementsByClassName("start-game-logo");
+  // this.bigLogo[0].classList.remove("start-game-logo");
+  this.smallLogo = document.getElementsByClassName("title-box");
+  // this.smallLogo[0].classList.remove("title-box-fade-out");
+  this.gameInfo = document.getElementsByClassName("start-game-info");
 }
 
 Controls.prototype.enablePlayerControls = function(){
@@ -58,18 +62,24 @@ Controls.prototype.keyUp = function(e) {
 
 Controls.prototype.startGame = function(e) {
   if (e.code === "Space") this.enablePlayerControls();
-  // this.bigLogo.classList.remove("start-game-logo-fade-in");
-  // this.bigLogo.classList.add("start-game-logo-fade-out");
-  // this.smallLogo.classList.remove("title-box-fade-in");
-  // this.smallLogo.classList.add("title-box-fade-out");
+  this.game.startNewGame();
+  this.bigLogo[0].classList.remove("start-game-logo-fade-in");
+  this.bigLogo[0].classList.add("start-game-logo-fade-out");
+  this.smallLogo[0].classList.remove("title-box-fade-in");
+  this.smallLogo[0].classList.add("title-box-fade-out");
+  this.gameInfo[0].classList.remove("start-game-info-fade-in");
+  this.gameInfo[0].classList.add("start-game-info-fade-out");
 }
 
 Controls.prototype.gameOver = function() {
   this.disablePlayerControls();
-  // this.bigLogo.classList.remove("start-game-logo-fade-out");
-  // this.bigLogo.classList.add("start-game-logo-fade-in");
-  // this.smallLogo.classList.remove("title-box-fade-out");
-  // this.smallLogo.classList.add("title-box-fade-in");
+  this.game.gameOver();
+  this.bigLogo[0].classList.remove("start-game-logo-fade-out");
+  this.bigLogo[0].classList.add("start-game-logo-fade-in");
+  this.smallLogo[0].classList.remove("title-box-fade-out");
+  this.smallLogo[0].classList.add("title-box-fade-in");
+  this.gameInfo[0].classList.remove("start-game-info-fade-out");
+  this.gameInfo[0].classList.add("start-game-info-fade-in");
 }
 
 module.exports = Controls;
