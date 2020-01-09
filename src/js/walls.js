@@ -3,58 +3,65 @@ function Wall(octant){
   this.octant = octant;
   this.sprite = new Image();
   this.speed = 4;
-  this.octantLogic(octant);
   this.sprite.src = "https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/thruster-2.png";
+  this.octantLogic(octant);
 }
 
 Wall.prototype.octantLogic = function(octant){
   
   switch (octant) {
     case 0:
-      // this.sprite = "image goes here"
       this.pos = [0,384];
-      this.xoffset = 0;
-      this.yoffset = 0;
+      this.degreeRotation = -90;
+      this.xoffset = -100;
+      this.yoffset = 100;
       break;
     case 1:
       this.pos = [0,0];
-      this.xoffset = 0;
-      this.yoffset = 0;
+      this.degreeRotation = -45;
+      this.xoffset = -100;
+      this.yoffset = 50;
       break;
     case 2:
       this.pos = [384,0];
-      this.xoffset = 0;
-      this.yoffset = 0;
+      this.degreeRotation = 0;
+      this.xoffset = -100;
+      this.yoffset = -100;
       break;
     case 3:
       this.pos = [768,0];
-      this.xoffset = 0;
-      this.yoffset = 0;
+      this.degreeRotation = 45;
+      this.xoffset = -50;
+      this.yoffset = -100;
       break;
     case 4:
       this.pos = [768,384];
-      this.xoffset = 0;
-      this.yoffset = 0;
+      this.degreeRotation = 90;
+      this.xoffset = 100;
+      this.yoffset = -100;
       break;
     case 5:
       this.pos = [768,768];
-      this.xoffset = 0;
-      this.yoffset = 0;
+      this.degreeRotation = 135;
+      this.xoffset = 100;
+      this.yoffset = -50;
       break;
     case 6:
       this.pos = [384,768];
-      this.xoffset = 0;
-      this.yoffset = 0;
+      this.degreeRotation = 180;
+      this.xoffset = 100;
+      this.yoffset = 100;
       break;
     case 7:
       this.pos = [0,768];
-      this.xoffset = 0;
-      this.yoffset = 0;
+      this.degreeRotation = 225;
+      this.xoffset = 50;
+      this.yoffset = 100;
       break;
   }
 }
 
-Wall.prototype.move = function(cursor){
+Wall.prototype.move = function(cursor, game){
   // TODO hitbox logic is actually coded here, return true if gameOver
   // may need to pass down degrees from cursor
 
@@ -68,8 +75,9 @@ Wall.prototype.move = function(cursor){
   if (dx > 0){this.pos[0] += this.speed} else if (dx < 0) {this.pos[0] -= this.speed};
   if (dy > 0){this.pos[1] += this.speed} else if (dy < 0) {this.pos[1] -= this.speed};
 
-  // FIXME 
-  if (dx === 0 && dy === 0) gameOver = true;
+  if (dx === 0 && dy === 0){
+    // gameOver = true;
+  };
 
   return gameOver;
 }
@@ -81,13 +89,11 @@ Wall.prototype.draw = function(ctx){
   
 
   // TODO change to sprite with offset based on octant
-
+  ctx.translate(x+this.xoffset, y+this.yoffset);
   ctx.rotate(((2 * Math.PI) / 360) * (this.degreeRotation % 360));
-  ctx.drawImage(this.sprite ,x-this.xoffset, y-this.yoffset, 100, 100);
+  ctx.drawImage(this.sprite ,100/2, 100/2, 100, 100);
   ctx.rotate(((2 * Math.PI) / 360) * (-this.degreeRotation % 360));
-  // ctx.beginPath();
-  // ctx.arc(x, y, 50, 0, 2 * Math.PI);
-  // ctx.stroke();
+  ctx.translate(-x-this.xoffset, -y-this.yoffset);
   
 }
 

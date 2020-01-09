@@ -80,4 +80,4 @@ Controls.prototype.gameOver = function() {
   this.gameInfo[0].classList.add("start-game-info-fade-in");
 }
 
-module.exports = Controls;
+export default Controls;

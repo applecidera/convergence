@@ -1,50 +1,49 @@
 
 // use require instead of import
-const EASY_PATTERNS = require('./patterns');
-const Wall = require('./walls')
+import { EASY_PATTERNS, MEDIUM_PATTERNS, HARD_PATTERNS, test }  from './patterns';
+import Wall from './walls';
 
 function Wave(difficulty) {
-  this.walls = this.addWalls(difficulty);
+  // console.log(EASY_PATTERNS[Math.floor(Math.random(EASY_PATTERNS.length))]);
   this.end = false;
   this.difficulty = difficulty;
   switch (difficulty) {
     case "easy":
-      this.pattern = EASY_PATTERNS[Math.random(Math.floor(EASY_PATTERNS.length))];
+      // debugger
+      this.pattern = EASY_PATTERNS[Math.floor(Math.random(EASY_PATTERNS.length))];
       break;
     case "medium":
-      this.pattern = MEDIUM_PATTERNS[Math.random(Math.floor(MEDIUM_PATTERNS.length))];
+      this.pattern = MEDIUM_PATTERNS[Math.floor(Math.random(MEDIUM_PATTERNS.length))];
       break;
     case "hard":
-      this.pattern = HARD_PATTERNS[Math.random(Math.floor(HARD_PATTERNS.length))];
+      this.pattern = HARD_PATTERNS[Math.floor(Math.random(HARD_PATTERNS.length))];
       break;
   }
+  this.walls = this.addWalls(difficulty);
 }
 
 Wave.prototype.addWalls = function(difficulty){
   let walls = [];
-  // FIXME Remove static pattern and make dyamic randomizer
-  let pattern = [ 
-    [
-      [1,1,0,0,1,1,0,0,],
-      [0,0,1,1,0,0,1,1],
-      [1,1,0,0,1,1,0,0],
-      [0,0,1,1,0,0,1,1],
-      [1,1,0,0,1,1,0,0]
-    ]
-  ];
+  const {pattern} = this;
+  
+  // for (let i=0; i<8; i++){
+  //   if (pattern[i] === 1){
+  //     let newWall = new Wall(i, this.pattern);
+  //     walls.push(newWall);
+  //   } else {
+  //     walls.push(null);
+  //   }
+  // }
 
-  if (difficulty === "easy"){
-    for (let i=0; i<8; i++){
-      let newWall = new Wall(i, pattern);
-      // let newWall = new Wall(i);
+  for (let i=0; i<8; i++){
+      let newWall = new Wall(i, this.pattern);
       walls.push(newWall);
-    }
   }
 
   return walls;
 }
 
-Wave.prototype.move = function(cursor){
+Wave.prototype.move = function(cursor, game){
   // TODO iterate thru each wall and set new coordinates, movement alowed based on elapsed time
   // hitbox logic if any of the walls touch cursor, set gameOver = true
   // actual logic in walls.js
@@ -52,7 +51,7 @@ Wave.prototype.move = function(cursor){
 
   if (this.difficulty === "easy"){
     for (let i=0; i<8; i++){
-      if (this.walls[i].move(cursor)) gameOver = true;
+      if (this.walls[i].move(cursor, game)) gameOver = true;
     }
   }
 
@@ -65,4 +64,4 @@ Wave.prototype.draw = function(ctx){
   }
 }
 
-module.exports = Wave;
+export default Wave;

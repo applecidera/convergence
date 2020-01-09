@@ -1,5 +1,5 @@
 // 2 second spawn intervals (10 seconds)
-const EASY_PATTERNS = [ 
+export const EASY_PATTERNS = [ 
   [
     [1,1,0,0,1,1,0,0,],
     [0,0,1,1,0,0,1,1],
@@ -21,10 +21,10 @@ const EASY_PATTERNS = [
     [0,1,1,1,1,1,1,0],
     [1,1,1,1,1,1,0,0]
   ]
-]
+];
 
 // 1 second intervals (10 seconds)
-const MEDIUM_PATTERNS = [
+export const MEDIUM_PATTERNS = [
   [
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0],
@@ -49,11 +49,11 @@ const MEDIUM_PATTERNS = [
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0]
   ]
-]
+];
 
 
 // 0.5 second intervals (10 seconds)
-const HARD_PATTERNS = [
+export const HARD_PATTERNS = [
   [
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0],
@@ -98,4 +98,6 @@ const HARD_PATTERNS = [
     [0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0]
   ]
-]
+];
+
+export const test = "this is a test";
