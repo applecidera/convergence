@@ -28,4 +28,11 @@ GameStage.prototype.ticker = function(time){
   window.requestAnimationFrame(this.ticker.bind(this));
 }
 
+const audio = new Audio('https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/Megalovania.mp3');
+audio.addEventListener('ended', ()=>{
+  audio.currentTime = 0;
+  audio.play()
+}, false);
+// audio.play();
+
 export default GameStage;
