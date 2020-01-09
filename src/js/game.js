@@ -112,12 +112,9 @@ Game.prototype.removeWave = function() {
 	const { waves } = this;
 	const removeDistance = 60;
 	// shifts off wave in FIFO
-	// debugger
 	if (waves[0] !== undefined) {
 		for (let i = 0; i < 8; i++) {
-			// debugger;
 			if (waves[0].walls[i] !== undefined) {
-				// debugger
 				let x1 = waves[0].walls[i].pos[0];
 				let y1 = waves[0].walls[i].pos[1];
 				let distance = Math.sqrt((384 - x1) ** 2 + (384 - y1) ** 2);
