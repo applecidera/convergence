@@ -2,6 +2,7 @@ function Wall(octant) {
 	this.octant = octant;
 	this.sprite = new Image();
 	this.speed = 4;
+	this.scale = 4;
 	this.sprite.src =
 		'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/thruster-2.png';
 	this.octantLogic(octant);
@@ -88,11 +89,20 @@ Wall.prototype.move = function(cursor, game) {
 Wall.prototype.draw = function(ctx) {
 	const { pos } = this;
 	let x = pos[0];
-	let y = pos[1];
+  let y = pos[1];
+  if (this.scale > 1.01) this.scale -= 0.04;
 
-	ctx.translate(x + this.xoffset, y + this.yoffset);
+	ctx.translate(x + (this.xoffset), y + this.yoffset);
 	ctx.rotate(2 * Math.PI / 360 * (this.degreeRotation % 360));
-	ctx.drawImage(this.sprite, 100 / 2, 100 / 2, 100, 100);
+	ctx.drawImage(
+		this.sprite,
+		(100 / 2) ,
+    (100 / 2) ,
+    100 ,
+		100 
+		// 100 * this.scale,
+		// 100 * this.scale
+	);
 	ctx.rotate(2 * Math.PI / 360 * (-this.degreeRotation % 360));
 	ctx.translate(-x - this.xoffset, -y - this.yoffset);
 };

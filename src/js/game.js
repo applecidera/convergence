@@ -16,6 +16,7 @@ function Game(context) {
 	this.waves = [];
 	this.waveInterval = 0;
 	this.patternStep = 0;
+	this.patternList = [];
 	this.difficulty = 'easy';
 	this.gameState = false;
 	this.sunMap = new Image();
@@ -46,12 +47,12 @@ Game.prototype.logic = function(frameInterval) {
 		cursor.moveCursor('clockwise');
 	}
 
-	// if (this.totalTimeElapsed > 19 * 1000){
-	// 	this.difficulty = "medium";
-	// }
-	// if (this.totalTimeElapsed > 39 * 1000){
-	// 	this.difficulty = "hard";
-	// }
+	if (this.totalTimeElapsed > 19.5 * 1000){
+		this.difficulty = "medium";
+	}
+	if (this.totalTimeElapsed > 39.5 * 1000){
+		this.difficulty = "hard";
+	}
 
 	this.timerCounter(frameInterval);
 
@@ -106,49 +107,49 @@ Game.prototype.addControls = function() {
 
 Game.prototype.addWave = function(frameInterval) {
 	const { elapsedTime, waveInterval, pattern, difficulty } = this;
-	// every 10 seconds randomly select new pattern
-	if (elapsedTime > waveInterval) {
-		switch (difficulty) {
-			case 'easy':
-				this.pattern =
-					EASY_PATTERNS[Math.floor(Math.random() * EASY_PATTERNS.length)];
-				break;
-			case 'medium':
-				this.pattern =
-					MEDIUM_PATTERNS[Math.floor(Math.random() * MEDIUM_PATTERNS.length)];
-				break;
-			case 'hard':
-				this.pattern =
-					HARD_PATTERNS[Math.floor(Math.random() * HARD_PATTERNS.length)];
-				break;
-		}
-		// debugger
-		let newWave = new Wave(this.pattern[0]);
-		this.waves.push(newWave);
-		this.elapsedTime = frameInterval + 1;
-		// TODO create new waveInterval based on difficulty
-		this.waveInterval = 10 * 1000;
-		this.patternStep = 0;
-		this.subwaveTimer = 0;
-	}
 
-	if (difficulty === 'easy') {
-		this.subWaveInterval = 2;	
-	} else if (difficulty === "medium") {
-		this.subWaveInterval = 1;
-	} else if (difficulty === "hard") {
-		this.subWaveInterval = 0.75;
-	}
-
+	// launch wave every x seconds
 	if (this.subwaveTimer > this.subWaveInterval * 1000) {
-		this.patternStep += 1;
-		this.subwaveTimer = 0;
-		let newWave = new Wave(pattern[this.patternStep]);
+		// if patternList is empty, add more patterns to patternList
+		if (this.patternList.length === 0) {
+			switch (difficulty) {
+				case 'easy':
+					this.patternList = this.patternList.concat(
+						EASY_PATTERNS[Math.floor(Math.random() * EASY_PATTERNS.length)]
+					);
+					this.subWaveInterval = 2;
+					break;
+				case 'medium':
+					this.patternList = this.patternList.concat(
+						MEDIUM_PATTERNS[Math.floor(Math.random() * MEDIUM_PATTERNS.length)]
+					);
+					this.subWaveInterval = 1;
+					break;
+				case 'hard':
+					this.patternList = this.patternList.concat(
+						HARD_PATTERNS[Math.floor(Math.random() * HARD_PATTERNS.length)]
+					);
+					this.subWaveInterval = 0.75;
+					break;
+			}
+			
+			// this stuff runs if patternList is empty
+			// TODO create new waveInterval based on difficulty
+			// this.elapsedTime = frameInterval + 1;
+			// this.waveInterval = 10 * 1000;
+			// this.patternStep = 0;
+		}
+		// this stuff runs at set intervals (2s)
+		this.pattern = this.patternList.shift();
+		let newWave = new Wave(this.pattern);
 		this.waves.push(newWave);
+		this.subwaveTimer = 0;
+		// this.patternStep += 1;
 	}
+	// this stuff happens regardless of timer
 
 	// increment elapsedTime
-	this.elapsedTime += frameInterval;
+	// this.elapsedTime += frameInterval;
 	this.subwaveTimer += frameInterval;
 };
 
