@@ -2,6 +2,8 @@ import './styles/index.scss';
 import Game from './js/game';
 import GameStage from './js/gamestage';
 
+
+
 let canvas = document.getElementById('stage');
 canvas.width = 768;
 canvas.height = 768;

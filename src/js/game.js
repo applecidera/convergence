@@ -109,7 +109,7 @@ Game.prototype.addWave = function(frameInterval) {
 	const { elapsedTime, waveInterval, pattern, difficulty } = this;
 
 	// launch wave every x seconds
-	if (this.subwaveTimer > this.subWaveInterval * 1000) {
+	if (this.subwaveTimer > this.subWaveInterval * 1000 || this.totalTimeElapsed === frameInterval) {
 		// if patternList is empty, add more patterns to patternList
 		if (this.patternList.length === 0) {
 			switch (difficulty) {
@@ -163,7 +163,6 @@ Game.prototype.removeWave = function() {
 				let x1 = waves[0].walls[i].pos[0];
 				let y1 = waves[0].walls[i].pos[1];
 				let distance = Math.sqrt((384 - x1) ** 2 + (384 - y1) ** 2);
-				// console.log(`distance is ${distance} and removeDistance is 50`);
 				if (distance < removeDistance) {
 					this.waves.shift();
 					break;
