@@ -44,6 +44,8 @@ Controls.prototype.keyDown = function(e) {
         this.state.left.active = true;
       }
       break;
+    default:
+      break;
   }
 }
 
@@ -55,18 +57,22 @@ Controls.prototype.keyUp = function(e) {
     case "ArrowLeft":
       this.state.left.active = false;
       break;
+    default:
+      break;
   }
 }
 
 Controls.prototype.startGame = function(e) {
-  if (e.code === "Space") this.enablePlayerControls();
-  this.game.startNewGame();
-  this.bigLogo[0].classList.remove("start-game-logo-fade-in");
-  this.bigLogo[0].classList.add("start-game-logo-fade-out");
-  this.smallLogo[0].classList.remove("title-box-fade-in");
-  this.smallLogo[0].classList.add("title-box-fade-out");
-  this.gameInfo[0].classList.remove("start-game-info-fade-in");
-  this.gameInfo[0].classList.add("start-game-info-fade-out");
+  if (e.code === "Space") {
+    this.enablePlayerControls();
+    this.game.startNewGame();
+    this.bigLogo[0].classList.remove("start-game-logo-fade-in");
+    this.bigLogo[0].classList.add("start-game-logo-fade-out");
+    this.smallLogo[0].classList.remove("title-box-fade-in");
+    this.smallLogo[0].classList.add("title-box-fade-out");
+    this.gameInfo[0].classList.remove("start-game-info-fade-in");
+    this.gameInfo[0].classList.add("start-game-info-fade-out");
+  }
 }
 
 Controls.prototype.gameOver = function() {

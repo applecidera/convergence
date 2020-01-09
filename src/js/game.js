@@ -44,9 +44,7 @@ Game.prototype.logic = function(frameInterval) {
 
 	this.timerCounter(frameInterval);
 
-	// TODO uncomment when finished
 	this.waveLogic(frameInterval);
-	// this.waveMovement();
 };
 
 Game.prototype.draw = function() {
@@ -98,13 +96,12 @@ Game.prototype.addControls = function() {
 Game.prototype.addWave = function(frameInterval) {
 	const { elapsedTime, waveInterval } = this;
 	if (elapsedTime > waveInterval) {
-		// TODO launch next wave
+		// launch next wave at set intervals
 		let newWave = new Wave(this.difficulty);
 		this.waves.push(newWave);
 		this.elapsedTime = 0;
 		// TODO create new waveInterval based on difficulty
 		this.waveInterval = 10 * 1000;
-	} else {
 	}
 
 	// increment elapsedTime
@@ -112,21 +109,36 @@ Game.prototype.addWave = function(frameInterval) {
 };
 
 Game.prototype.removeWave = function() {
+	const { waves } = this;
+	const removeDistance = 60;
 	// shifts off wave in FIFO
-	this.waves.shift();
+	// debugger
+	if (waves[0] !== undefined) {
+		for (let i = 0; i < 8; i++) {
+			// debugger;
+			if (waves[0].walls[i] !== undefined) {
+				// debugger
+				let x1 = waves[0].walls[i].pos[0];
+				let y1 = waves[0].walls[i].pos[1];
+				let distance = Math.sqrt((384 - x1) ** 2 + (384 - y1) ** 2);
+				// console.log(`distance is ${distance} and removeDistance is 50`);
+				if (distance < removeDistance) {
+					this.waves.shift();
+					break;
+				}
+			}
+		}
+	}
 };
 
 Game.prototype.waveLogic = function(frameInterval) {
 	this.addWave(frameInterval);
 	let game = this;
-	const removeDistance = 384-50;
 	const { waves } = this;
 
-	if (waves[0] !== undefined) {
-		if ( Math.abs(waves[0].walls[0].pos[0]) > removeDistance){
-			this.removeWave();
-		}
-	}
+	// wave despawn logic
+	this.removeWave();
+
 	waves.forEach((wave) => {
 		// if any return true, call this.gameOver()
 		if (wave.move(this.cursor, game)) this.gameOver();
