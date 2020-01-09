@@ -1,5 +1,5 @@
 function Cursor(context) {
-  this.degrees = -90; 
+  this.degrees = 270; 
   this.cursorSpeed = 5;
   this.cursor = new Image();
   this.cursor.src = 'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/pixel_ship_red_small_2.png';

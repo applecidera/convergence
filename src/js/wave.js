@@ -1,21 +1,22 @@
 
 import Wall from './walls';
 
-function Wave(pattern) {
+function Wave(pattern, difficulty) {
   this.pattern = pattern
 	this.end = false;
   this.subwaveTimer = 0;
   this.currentSubwave = 0;
-	this.walls = this.addWalls();
+  this.walls = this.addWalls();
+  this.difficulty = difficulty;
 }
 
 Wave.prototype.addWalls = function(difficulty) {
   let walls = [];
   const {pattern} = this;
 
-	for (let i = 0; i < 8; i++) {
-		if (pattern[i] === 1) {
-			let newWall = new Wall(i);
+	for (let octant = 0; octant < 8; octant++) {
+		if (pattern[octant] === 1) {
+			let newWall = new Wall(octant, this.difficulty);
 			walls.push(newWall);
 		} else {
 			walls.push(null);
@@ -25,7 +26,7 @@ Wave.prototype.addWalls = function(difficulty) {
 	return walls;
 };
 
-Wave.prototype.move = function(theta, game) {
+Wave.prototype.move = function(degrees, game) {
 	// TODO iterate thru each wall and set new coordinates, movement alowed based on elapsed time
 	// hitbox logic if any of the walls touch cursor, set gameOver = true
 	// actual logic in walls.js
@@ -33,7 +34,7 @@ Wave.prototype.move = function(theta, game) {
 
   for (let i = 0; i < 8; i++) {
     if (this.walls[i] !== null) {
-      if (this.walls[i].move(theta, game)) gameOver = true;
+      if (this.walls[i].move(degrees, game)) gameOver = true;
     }
   }
 

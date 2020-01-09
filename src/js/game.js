@@ -5,20 +5,19 @@ import { EASY_PATTERNS, MEDIUM_PATTERNS, HARD_PATTERNS } from './patterns';
 
 // initializer
 function Game(context) {
-	this.isGameOver = true;
+
 	this.ctx = context;
 	this.dim_x = 768;
 	this.dim_y = 768;
-	this.elapsedTime = 0;
+
+	this.isGameOver = true;
 	this.totalTimeElapsed = 0;
 	this.subwaveTimer = 0;
 	this.subWaveInterval = 2;
 	this.waves = [];
-	this.waveInterval = 0;
-	this.patternStep = 0;
 	this.patternList = [];
 	this.difficulty = 'easy';
-	this.gameState = false;
+
 	this.sunMap = new Image();
 	this.warpGate1 = new Image();
 	this.warpGate2 = new Image();
@@ -106,10 +105,11 @@ Game.prototype.addControls = function() {
 };
 
 Game.prototype.addWave = function(frameInterval) {
-	const { elapsedTime, waveInterval, pattern, difficulty } = this;
+	const { difficulty } = this;
 
 	// launch wave every x seconds
 	if (this.subwaveTimer > this.subWaveInterval * 1000 || this.totalTimeElapsed === frameInterval) {
+		// if (this.subwaveTimer > this.subWaveInterval * 1000 ) {
 		// if patternList is empty, add more patterns to patternList
 		if (this.patternList.length === 0) {
 			switch (difficulty) {
@@ -133,23 +133,15 @@ Game.prototype.addWave = function(frameInterval) {
 					break;
 			}
 			
-			// this stuff runs if patternList is empty
-			// TODO create new waveInterval based on difficulty
-			// this.elapsedTime = frameInterval + 1;
-			// this.waveInterval = 10 * 1000;
-			// this.patternStep = 0;
 		}
 		// this stuff runs at set intervals (2s)
 		this.pattern = this.patternList.shift();
-		let newWave = new Wave(this.pattern);
+		let newWave = new Wave(this.pattern, this.difficulty);
 		this.waves.push(newWave);
 		this.subwaveTimer = 0;
-		// this.patternStep += 1;
+		
 	}
-	// this stuff happens regardless of timer
-
-	// increment elapsedTime
-	// this.elapsedTime += frameInterval;
+	// runs regardless of timer
 	this.subwaveTimer += frameInterval;
 };
 
@@ -179,12 +171,16 @@ Game.prototype.waveLogic = function(frameInterval) {
 
 	// wave despawn logic
 	this.removeWave();
-	let theta = Math.abs(this.cursor.degrees % 360);
-	console.log(theta);
+
+	//cursor angle as theta
+	let degrees = this.cursor.degrees;
+	while (degrees < 0){
+		degrees += 360;
+	}
+
 	waves.forEach((wave) => {
-		// if any return true, call this.gameOver()
-		
-		if (wave.move(theta, game)) this.gameOver();
+		// if any return true, call this.gameOver()	
+		if (wave.move(degrees, game)) this.gameOver();
 	});
 };
 
@@ -196,14 +192,21 @@ Game.prototype.timerCounter = function(timeElapsed) {
 };
 
 Game.prototype.startNewGame = function() {
-	this.elapsedTime = 0;
-	this.waves = [];
+	
 	this.totalTimeElapsed = 0;
+	this.subwaveTimer = 0;
+	this.subWaveInterval = 2;
+	this.waves = [];
+	this.patternList = [];
+	this.difficulty = 'easy';
+	this.cursor.degrees = 270;
+	// this.controls.startGame();
 	this.isGameOver = false;
 };
 
 Game.prototype.gameOver = function() {
 	// option to play again, calls start new game
+	// this.controls.gameOver();
 	this.isGameOver = true;
 };
 
