@@ -117,19 +117,19 @@ Game.prototype.addWave = function(frameInterval) {
 					this.patternList = this.patternList.concat(
 						EASY_PATTERNS[Math.floor(Math.random() * EASY_PATTERNS.length)]
 					);
-					this.subWaveInterval = 2;
+					this.subWaveInterval = 1;
 					break;
 				case 'medium':
 					this.patternList = this.patternList.concat(
 						MEDIUM_PATTERNS[Math.floor(Math.random() * MEDIUM_PATTERNS.length)]
 					);
-					this.subWaveInterval = 1;
+					this.subWaveInterval = .75;
 					break;
 				case 'hard':
 					this.patternList = this.patternList.concat(
 						HARD_PATTERNS[Math.floor(Math.random() * HARD_PATTERNS.length)]
 					);
-					this.subWaveInterval = 0.75;
+					this.subWaveInterval = 0.5;
 					break;
 			}
 			
@@ -179,10 +179,12 @@ Game.prototype.waveLogic = function(frameInterval) {
 
 	// wave despawn logic
 	this.removeWave();
-
+	let theta = Math.abs(this.cursor.degrees % 360);
+	console.log(theta);
 	waves.forEach((wave) => {
 		// if any return true, call this.gameOver()
-		if (wave.move(this.cursor, game)) this.gameOver();
+		
+		if (wave.move(theta, game)) this.gameOver();
 	});
 };
 

@@ -1,7 +1,7 @@
 function Wall(octant) {
 	this.octant = octant;
 	this.sprite = new Image();
-	this.speed = 4;
+	this.speed = 5;
 	this.scale = 4;
 	this.sprite.src =
 		'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/thruster-2.png';
@@ -70,7 +70,7 @@ Wall.prototype.octantLogic = function(octant) {
 	}
 };
 
-Wall.prototype.move = function(cursor, game) {
+Wall.prototype.move = function(theta, game) {
 	const { hitbox, hitbox2 } = this;
 	let gameOver = false;
 	let posx = this.pos[0];
@@ -79,9 +79,6 @@ Wall.prototype.move = function(cursor, game) {
 
 	// TODO hitbox logic is actually coded here, return true if gameOver
 	// may need to pass down degrees from cursor
-
-	// octanct hit box detection
-  let theta = Math.abs(cursor.degrees % 360);
 
   // if (this.octant === 7){
   //   console.log(distance);

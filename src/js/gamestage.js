@@ -14,7 +14,6 @@ function GameStage (context, game) {
 GameStage.prototype.ticker = function(time){
   const {frameInterval, setTime} = this;
 
-
   // time-limit
   let curTime = time;
   let timeDif = curTime - setTime;
