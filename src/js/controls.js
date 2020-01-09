@@ -13,6 +13,7 @@ function Controls(game){
   this.keyUp = this.keyUp.bind(this);
   this.startGame = this.startGame.bind(this);
   this.gameOver = this.gameOver.bind(this);
+  this.overlay = document.getElementsByClassName("overlay");
   this.bigLogo = document.getElementsByClassName("start-game-logo");
   this.smallLogo = document.getElementsByClassName("title-box");
   this.gameInfo = document.getElementsByClassName("start-game-info");
@@ -66,6 +67,7 @@ Controls.prototype.startGame = function(e) {
   if (e.code === "Space") {
     this.enablePlayerControls();
     this.game.startNewGame();
+    this.overlay[0].classList.add("clear-background-image");
     this.bigLogo[0].classList.remove("start-game-logo-fade-in");
     this.bigLogo[0].classList.add("start-game-logo-fade-out");
     this.smallLogo[0].classList.remove("title-box-fade-in");

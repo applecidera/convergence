@@ -26,6 +26,7 @@ body {
 }
 
 .overlay {
+  background-image: url("https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/background-black.png");
   position: absolute;
   display: grid;
   grid-template: 1fr 1fr / 1fr 1fr;
@@ -35,6 +36,11 @@ body {
   width: 100%;
   pointer-events: none;
   }
+
+  .clear-background-image{
+    background-image: none;
+  }
+
 
   .title-box{
     grid-column: 1/2;

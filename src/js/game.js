@@ -1,6 +1,7 @@
 import Controls from './controls';
 import Cursor from './cursor';
 import Wave from './wave';
+import { EASY_PATTERNS, MEDIUM_PATTERNS, HARD_PATTERNS } from './patterns';
 
 // initializer
 function Game(context) {
@@ -10,8 +11,11 @@ function Game(context) {
 	this.dim_y = 768;
 	this.elapsedTime = 0;
 	this.totalTimeElapsed = 0;
+	this.subwaveTimer = 0;
+	this.subWaveInterval = 2;
 	this.waves = [];
 	this.waveInterval = 0;
+	this.patternStep = 0;
 	this.difficulty = 'easy';
 	this.gameState = false;
 	this.sunMap = new Image();
@@ -41,6 +45,13 @@ Game.prototype.logic = function(frameInterval) {
 	} else if (controls.state.right.active) {
 		cursor.moveCursor('clockwise');
 	}
+
+	// if (this.totalTimeElapsed > 19 * 1000){
+	// 	this.difficulty = "medium";
+	// }
+	// if (this.totalTimeElapsed > 39 * 1000){
+	// 	this.difficulty = "hard";
+	// }
 
 	this.timerCounter(frameInterval);
 
@@ -94,18 +105,51 @@ Game.prototype.addControls = function() {
 };
 
 Game.prototype.addWave = function(frameInterval) {
-	const { elapsedTime, waveInterval } = this;
+	const { elapsedTime, waveInterval, pattern, difficulty } = this;
+	// every 10 seconds randomly select new pattern
 	if (elapsedTime > waveInterval) {
-		// launch next wave at set intervals
-		let newWave = new Wave(this.difficulty);
+		switch (difficulty) {
+			case 'easy':
+				this.pattern =
+					EASY_PATTERNS[Math.floor(Math.random() * EASY_PATTERNS.length)];
+				break;
+			case 'medium':
+				this.pattern =
+					MEDIUM_PATTERNS[Math.floor(Math.random() * MEDIUM_PATTERNS.length)];
+				break;
+			case 'hard':
+				this.pattern =
+					HARD_PATTERNS[Math.floor(Math.random() * HARD_PATTERNS.length)];
+				break;
+		}
+		// debugger
+		let newWave = new Wave(this.pattern[0]);
 		this.waves.push(newWave);
-		this.elapsedTime = 0;
+		this.elapsedTime = frameInterval + 1;
 		// TODO create new waveInterval based on difficulty
 		this.waveInterval = 10 * 1000;
+		this.patternStep = 0;
+		this.subwaveTimer = 0;
+	}
+
+	if (difficulty === 'easy') {
+		this.subWaveInterval = 2;	
+	} else if (difficulty === "medium") {
+		this.subWaveInterval = 1;
+	} else if (difficulty === "hard") {
+		this.subWaveInterval = 0.75;
+	}
+
+	if (this.subwaveTimer > this.subWaveInterval * 1000) {
+		this.patternStep += 1;
+		this.subwaveTimer = 0;
+		let newWave = new Wave(pattern[this.patternStep]);
+		this.waves.push(newWave);
 	}
 
 	// increment elapsedTime
 	this.elapsedTime += frameInterval;
+	this.subwaveTimer += frameInterval;
 };
 
 Game.prototype.removeWave = function() {
@@ -114,7 +158,7 @@ Game.prototype.removeWave = function() {
 	// shifts off wave in FIFO
 	if (waves[0] !== undefined) {
 		for (let i = 0; i < 8; i++) {
-			if (waves[0].walls[i] !== undefined) {
+			if (waves[0].walls[i] !== null) {
 				let x1 = waves[0].walls[i].pos[0];
 				let y1 = waves[0].walls[i].pos[1];
 				let distance = Math.sqrt((384 - x1) ** 2 + (384 - y1) ** 2);
@@ -142,6 +186,7 @@ Game.prototype.waveLogic = function(frameInterval) {
 	});
 };
 
+// top right timer
 Game.prototype.timerCounter = function(timeElapsed) {
 	this.totalTimeElapsed += timeElapsed;
 	let roundedTime = Math.round(this.totalTimeElapsed / 10) / 100;
