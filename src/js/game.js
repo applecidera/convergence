@@ -5,11 +5,9 @@ import { EASY_PATTERNS, MEDIUM_PATTERNS, HARD_PATTERNS } from './patterns';
 
 // constructor
 function Game(context) {
-
 	this.ctx = context;
 	this.dim_x = 768;
 	this.dim_y = 768;
-	
 
 	this.isGameOver = true;
 	this.totalTimeElapsed = 0;
@@ -50,11 +48,11 @@ Game.prototype.logic = function(frameInterval) {
 		cursor.moveCursor('clockwise');
 	}
 
-	if (this.totalTimeElapsed > 9.5 * 1000){
-		this.difficulty = "medium";
+	if (this.totalTimeElapsed > 9.5 * 1000) {
+		this.difficulty = 'medium';
 	}
-	if (this.totalTimeElapsed > 19.5 * 1000){
-		this.difficulty = "hard";
+	if (this.totalTimeElapsed > 19.5 * 1000) {
+		this.difficulty = 'hard';
 	}
 
 	this.timerCounter(frameInterval);
@@ -63,15 +61,17 @@ Game.prototype.logic = function(frameInterval) {
 };
 
 Game.prototype.draw = function() {
-	const { dim_x, dim_y, ctx, warpGate, warpGateIndex, sunMap, staticMap } = this;
-	
+	const { dim_x, dim_y, ctx, warpGate, warpGateIndex, sunMap } = this;
+	ctx.save();
+	ctx.setTransform(1, 0, 0, 1, 0, 0);	// resets transform to clear entire cavas
+	ctx.clearRect(-256, -256, dim_x+256, dim_y+256); // clear canvas
+	ctx.restore();
+
 	this.rotation += this.rotationSpeed;
 	this.totalRotation += this.rotation;
-	ctx.translate(768 / 2, 768/2);
-	ctx.rotate(2*Math.PI / 360 * (this.rotation / 360));
-	ctx.translate(-768 / 2, -768/2);
-
-	ctx.clearRect(-2000, -2000, dim_x+2000, dim_y+2000); // clear canvas
+	ctx.translate(768 / 2, 768 / 2);
+	ctx.rotate(2 * Math.PI / 360 * (this.rotation / 360));
+	ctx.translate(-768 / 2, -768 / 2);
 
 	ctx.fillStyle = 'blue';
 	ctx.strokeStyle = 'blue';
@@ -119,7 +119,10 @@ Game.prototype.addWave = function(frameInterval) {
 	const { difficulty } = this;
 
 	// launch wave every x seconds
-	if (this.subwaveTimer > this.subWaveInterval * 1000 || this.totalTimeElapsed === frameInterval) {
+	if (
+		this.subwaveTimer > this.subWaveInterval * 1000 ||
+		this.totalTimeElapsed === frameInterval
+	) {
 		// if (this.subwaveTimer > this.subWaveInterval * 1000 ) {
 		// if patternList is empty, add more patterns to patternList
 		if (this.patternList.length === 0) {
@@ -134,7 +137,7 @@ Game.prototype.addWave = function(frameInterval) {
 					this.patternList = this.patternList.concat(
 						MEDIUM_PATTERNS[Math.floor(Math.random() * MEDIUM_PATTERNS.length)]
 					);
-					this.subWaveInterval = .75;
+					this.subWaveInterval = 0.75;
 					break;
 				case 'hard':
 					this.patternList = this.patternList.concat(
@@ -143,14 +146,12 @@ Game.prototype.addWave = function(frameInterval) {
 					this.subWaveInterval = 0.5;
 					break;
 			}
-			
 		}
 		// this stuff runs at set intervals (2s)
 		this.pattern = this.patternList.shift();
 		let newWave = new Wave(this.pattern, this.difficulty);
 		this.waves.push(newWave);
 		this.subwaveTimer = 0;
-		
 	}
 	// runs regardless of timer
 	this.subwaveTimer += frameInterval;
@@ -186,12 +187,12 @@ Game.prototype.waveLogic = function(frameInterval) {
 	//cursor angle as theta
 	let degrees = this.cursor.degrees;
 	degrees = degrees % 360;
-	while (degrees < 0){
+	while (degrees < 0) {
 		degrees += 360;
 	}
 
 	waves.forEach((wave) => {
-		// if any return true, call this.gameOver()	
+		// if any return true, call this.gameOver()
 		if (wave.move(degrees, game)) this.controls.gameOver();
 	});
 };
@@ -204,7 +205,6 @@ Game.prototype.timerCounter = function(timeElapsed) {
 };
 
 Game.prototype.startNewGame = function() {
-	
 	this.totalTimeElapsed = 0;
 	this.subwaveTimer = 0;
 	this.subWaveInterval = 2;
