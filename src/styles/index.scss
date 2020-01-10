@@ -181,7 +181,6 @@ body {
   grid-row: 1/3;
   z-index: 50;
 	display: flex;
-	display: none;
   justify-content: center;
   align-items: center;
   form{
@@ -229,17 +228,37 @@ input:focus{
 
 .high-score-box{
   display: flex;
-  justify-content: flex-start;
-	align-items: flex-end;
-	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	top: 10px;
+	left: 10px;
 	height: 300px;
-	width: 50%;
+	width: 100%;
 	pointer-events: none;
 	color: white;
 	position: absolute;
-	right: 240px;
-	top: 50px;
 	font-weight: bold;
+	animation: fade 1s reverse ease;
+	.current-highest-scores{
+		font-size: 12px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		justify-content: flex-start;
+		section{
+			padding-left: 50px;
+			padding-bottom: 10px;
+		}
+		div{
+			margin: 5px;
+			display: flex;
+			justify-content: space-between;
+			width: 100%;
+		}
+		span{
+			padding: 5px;
+		}
+	}
 }
 
 .hidden {

@@ -27,10 +27,13 @@ Controls.prototype.enablePlayerControls = function(){
 }
 
 Controls.prototype.disablePlayerControls = function(){
+
+  if (!this.game.newHighScore){
+    document.addEventListener('keydown', this.startGame);
+  }; 
   document.removeEventListener('keydown', this.keyDown);
   document.removeEventListener('keyup', this.keyUp);
-
-  document.addEventListener('keydown', this.startGame);
+  
 }
 
 Controls.prototype.keyDown = function(e) {
@@ -65,7 +68,6 @@ Controls.prototype.keyUp = function(e) {
 
 Controls.prototype.startGame = function(e) {
   if (e.code === "Space") {
-    this.enablePlayerControls();
     this.game.startNewGame();
     this.overlay[0].classList.add("clear-background-image");
     this.bigLogo[0].classList.remove("start-game-logo-fade-in");
@@ -75,12 +77,11 @@ Controls.prototype.startGame = function(e) {
     this.gameInfo[0].classList.remove("start-game-info-fade-in");
     this.gameInfo[0].classList.add("start-game-info-fade-out");
     this.highScoreList[0].classList.add("hidden");
+    this.enablePlayerControls();
   }
 }
 
-Controls.prototype.gameOver = function(highscore) {
-  // if (!highscore){this.disablePlayerControls()}; 
-  this.disablePlayerControls();
+Controls.prototype.gameOver = function() {
   this.game.gameOver();
   this.bigLogo[0].classList.remove("start-game-logo-fade-out");
   this.bigLogo[0].classList.add("start-game-logo-fade-in");
@@ -89,6 +90,7 @@ Controls.prototype.gameOver = function(highscore) {
   this.gameInfo[0].classList.remove("start-game-info-fade-out");
   this.gameInfo[0].classList.add("start-game-info-fade-in");
   this.highScoreList[0].classList.remove("hidden");
+  this.disablePlayerControls();
 }
 
 export default Controls;

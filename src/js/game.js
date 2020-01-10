@@ -8,6 +8,20 @@ function Game(context) {
 	this.ctx = context;
 	this.dim_x = 768;
 	this.dim_y = 768;
+	this.highScores = [
+		["Administrator", 28.79],
+		["Zekemeister", 23.45],
+		["TheJonBae", 3.33]
+	];
+	this.highScoreBox = document.getElementsByClassName("high-score-form");
+	this.highScoreInputField = document.getElementsByClassName("high-score-input-field");
+	document.addEventListener('submit', this.addHighScore.bind(this));
+	this.firstPlaceName = document.getElementsByClassName("first-place-name");
+	this.firstPlaceScore = document.getElementsByClassName("first-place-score");
+	this.secondPlaceName = document.getElementsByClassName("second-place-name");
+	this.secondPlaceScore = document.getElementsByClassName("second-place-score");
+	this.thirdPlaceName = document.getElementsByClassName("third-place-name");
+	this.thirdPlaceScore = document.getElementsByClassName("third-place-score");
 
 	this.isGameOver = true;
 	this.totalTimeElapsed = 0;
@@ -18,7 +32,7 @@ function Game(context) {
 	this.difficulty = 'easy';
 	this.rotation = 0;
 	this.rotationSpeed = 0.1;
-	this.highScore = false;
+	this.newHighScore = false;
 	this.deadShip = false;
 
 	this.sunMap = new Image();
@@ -43,38 +57,37 @@ function Game(context) {
 }
 
 Game.prototype.logic = function(frameInterval) {
-	if (!this.isGameOver){
+	if (!this.isGameOver) {
+		const { controls, cursor } = this;
+		if (controls.state.left.active) {
+			cursor.moveCursor('cclockwise');
+		} else if (controls.state.right.active) {
+			cursor.moveCursor('clockwise');
+		}
 
-	const { controls, cursor } = this;
-	if (controls.state.left.active) {
-		cursor.moveCursor('cclockwise');
-	} else if (controls.state.right.active) {
-		cursor.moveCursor('clockwise');
-	}
+		if (this.totalTimeElapsed > 9.5 * 1000) {
+			this.difficulty = 'medium';
+		}
+		if (this.totalTimeElapsed > 19.5 * 1000) {
+			this.difficulty = 'hard';
+		}
 
-	if (this.totalTimeElapsed > 9.5 * 1000) {
-		this.difficulty = 'medium';
-	}
-	if (this.totalTimeElapsed > 19.5 * 1000) {
-		this.difficulty = 'hard';
-	}
+		this.timerCounter(frameInterval);
 
-	this.timerCounter(frameInterval);
-
-	this.waveLogic(frameInterval);
+		this.waveLogic(frameInterval);
 	}
 };
 
 Game.prototype.draw = function() {
 	const { dim_x, dim_y, ctx, warpGate, warpGateIndex, sunMap } = this;
 	ctx.save();
-	ctx.setTransform(1, 0, 0, 1, 0, 0);	// resets transform to clear entire cavas
-	ctx.clearRect(-256, -256, dim_x+256, dim_y+256); // clear canvas
+	ctx.setTransform(1, 0, 0, 1, 0, 0); // resets transform to clear entire cavas
+	ctx.clearRect(-256, -256, dim_x + 256, dim_y + 256); // clear canvas
 	ctx.restore();
-	if (!this.isGameOver){
+	if (!this.isGameOver) {
 		this.rotation += this.rotationSpeed;
 	}
-	
+
 	ctx.translate(768 / 2, 768 / 2);
 	ctx.rotate(2 * Math.PI / 360 * (this.rotation / 360));
 	ctx.translate(-768 / 2, -768 / 2);
@@ -83,7 +96,7 @@ Game.prototype.draw = function() {
 	ctx.strokeStyle = 'blue';
 
 	// Cursor
-	if (!this.deadShip){
+	if (!this.deadShip) {
 		this.cursor.draw(ctx);
 	} else {
 		this.cursor.explosionAnimation(ctx);
@@ -229,12 +242,75 @@ Game.prototype.startNewGame = function() {
 };
 
 Game.prototype.gameOver = function() {
-	// option to play again, calls start new game
-	// this.controls.gameOver();
 	// TODO check high score to display name prompt
 	// if true, on form submit, set highscore = false and recall gameOver()
+	const survivedTime = Math.round(this.totalTimeElapsed / 10) / 100;
+	let firstPlace = this.highScores[0];
+	let secondPlace = this.highScores[1];
+	let thirdPlace = this.highScores[2];
+	this.highScoreBox[0].classList.remove("hidden");
+	this.highScoreBox[0].classList.add("hidden");
+	if (
+		survivedTime > firstPlace[1] ||
+		survivedTime > secondPlace[1] ||
+		survivedTime > thirdPlace[1]
+	) {
+		this.newHighScore = true;
+		this.highScoreBox[0].classList.remove("hidden");
+		this.highScoreInputField[0].focus();
+		this.highScoreInputField[0].select();
+	}
 	this.deadShip = true;
 	this.isGameOver = true;
 };
+
+Game.prototype.addHighScore = function(event){
+	event.preventDefault();
+
+	const survivedTime = Math.round(this.totalTimeElapsed / 10) / 100;
+
+	let highScoreInputField = document.getElementsByClassName("high-score-input-field")[0];
+	let highScoreName = highScoreInputField.value;
+	let newPlayer = [highScoreName, survivedTime];
+	let firstPlace = this.highScores[0];
+	let secondPlace = this.highScores[1];
+	let thirdPlace = this.highScores[2];
+
+	if (survivedTime > firstPlace[1]){
+		thirdPlace = secondPlace;
+		secondPlace = firstPlace;
+		firstPlace = newPlayer;
+	} else if (survivedTime > secondPlace[1]) {
+		thirdPlace = secondPlace;
+		secondPlace = newPlayer;
+	} else {
+		thirdPlace = newPlayer;
+	}
+
+	this.highScores = [
+		firstPlace,
+		secondPlace,
+		thirdPlace
+	]
+
+	// TODO move into own function
+	// reassign top survivors
+	// debugger
+	this.firstPlaceName[0].innerText = `First: ${firstPlace[0]}`;
+	this.firstPlaceScore[0].innerText = firstPlace[1].toString();
+	this.secondPlaceName[0].innerText = `Second: ${secondPlace[0]}`;
+	this.secondPlaceScore[0].innerText = secondPlace[1].toString();
+	this.thirdPlaceName[0].innerText = `Third: ${thirdPlace[0]}`;
+	this.thirdPlaceScore[0].innerText = thirdPlace[1].toString();
+	
+	// database logic goes here
+
+	// clear entered name and reset game logic
+	highScoreInputField.value = "";
+	this.highScoreBox[0].classList.add("hidden");
+	this.newHighScore = false;
+	this.totalTimeElapsed = 0;
+	this.controls.gameOver();
+}
 
 export default Game;
