@@ -9,6 +9,7 @@ function Game(context) {
 	this.ctx = context;
 	this.dim_x = 768;
 	this.dim_y = 768;
+	
 
 	this.isGameOver = true;
 	this.totalTimeElapsed = 0;
@@ -17,8 +18,11 @@ function Game(context) {
 	this.waves = [];
 	this.patternList = [];
 	this.difficulty = 'easy';
+	this.rotation = 0;
+	this.rotationSpeed = 0.1;
 
 	this.sunMap = new Image();
+	this.staticMap = new Image();
 	this.warpGate1 = new Image();
 	this.warpGate2 = new Image();
 	this.warpGate3 = new Image();
@@ -59,8 +63,15 @@ Game.prototype.logic = function(frameInterval) {
 };
 
 Game.prototype.draw = function() {
-	const { dim_x, dim_y, ctx, warpGate, warpGateIndex, sunMap } = this;
-	ctx.clearRect(0, 0, dim_x, dim_y); // clear canvas
+	const { dim_x, dim_y, ctx, warpGate, warpGateIndex, sunMap, staticMap } = this;
+	
+	this.rotation += this.rotationSpeed;
+	this.totalRotation += this.rotation;
+	ctx.translate(768 / 2, 768/2);
+	ctx.rotate(2*Math.PI / 360 * (this.rotation / 360));
+	ctx.translate(-768 / 2, -768/2);
+
+	ctx.clearRect(-2000, -2000, dim_x+2000, dim_y+2000); // clear canvas
 
 	ctx.fillStyle = 'blue';
 	ctx.strokeStyle = 'blue';
@@ -203,7 +214,8 @@ Game.prototype.startNewGame = function() {
 	this.cursor.degrees = 270;
 	this.controls.state.left.active = false;
 	this.controls.state.right.active = false;
-	// this.controls.startGame();
+	this.rotation = 0;
+	this.rotationSpeed = 0.1;
 	this.isGameOver = false;
 };
 

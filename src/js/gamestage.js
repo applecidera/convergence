@@ -33,6 +33,6 @@ audio.addEventListener('ended', ()=>{
   audio.currentTime = 0;
   audio.play()
 }, false);
-audio.play();
+// audio.play();
 
 export default GameStage;
