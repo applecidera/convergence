@@ -18,6 +18,8 @@ function Game(context) {
 	this.difficulty = 'easy';
 	this.rotation = 0;
 	this.rotationSpeed = 0.1;
+	this.highScore = false;
+	this.deadShip = false;
 
 	this.sunMap = new Image();
 	this.staticMap = new Image();

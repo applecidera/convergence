@@ -24,6 +24,10 @@ GameStage.prototype.ticker = function(time){
     this.game.draw();
     this.setTime = curTime;
   }
+  if (this.game.deadShip){
+    // explosion loop logic
+    // draw dead ship behind explosion (green ship)
+  }
 
   window.requestAnimationFrame(this.ticker.bind(this));
 }

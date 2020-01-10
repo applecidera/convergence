@@ -69,20 +69,21 @@ Controls.prototype.startGame = function(e) {
     this.overlay[0].classList.add("clear-background-image");
     this.bigLogo[0].classList.remove("start-game-logo-fade-in");
     this.bigLogo[0].classList.add("start-game-logo-fade-out");
-    this.smallLogo[0].classList.remove("title-box-fade-in");
-    this.smallLogo[0].classList.add("title-box-fade-out");
+    this.smallLogo[0].classList.remove("title-box-fade-out");
+    this.smallLogo[0].classList.add("title-box-fade-in");
     this.gameInfo[0].classList.remove("start-game-info-fade-in");
     this.gameInfo[0].classList.add("start-game-info-fade-out");
   }
 }
 
-Controls.prototype.gameOver = function() {
+Controls.prototype.gameOver = function(highscore) {
+  // if (!highscore){this.disablePlayerControls()}; 
   this.disablePlayerControls();
   this.game.gameOver();
   this.bigLogo[0].classList.remove("start-game-logo-fade-out");
   this.bigLogo[0].classList.add("start-game-logo-fade-in");
-  this.smallLogo[0].classList.remove("title-box-fade-out");
-  this.smallLogo[0].classList.add("title-box-fade-in");
+  this.smallLogo[0].classList.remove("title-box-fade-in");
+  this.smallLogo[0].classList.add("title-box-fade-out");
   this.gameInfo[0].classList.remove("start-game-info-fade-out");
   this.gameInfo[0].classList.add("start-game-info-fade-in");
 }
