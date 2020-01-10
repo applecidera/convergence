@@ -44,7 +44,7 @@ body {
 	left: 0;
 	height: 100%;
 	width: 100%;
-  pointer-events: none;
+  
 }
 
 .clear-background-image {
@@ -57,6 +57,7 @@ body {
 	color: white;
 	display: flex;
 	justify-content: flex-start;
+	pointer-events: none;
 }
 .title-box-fade-in {
 	grid-column: 1/2;
@@ -87,6 +88,7 @@ body {
 	width: 50px;
 	margin-right: 20px;
 	text-align: left;
+	pointer-events: none;
 }
 
 .start-game-logo {
@@ -95,6 +97,7 @@ body {
 	color: white;
 	display: flex;
 	justify-content: center;
+	pointer-events: none;
 	span {
 		margin-top: 150px;
 		font-size: 64px;
@@ -109,7 +112,7 @@ body {
 	justify-content: center;
 	flex-direction: column;
 	align-items: center;
-
+	pointer-events: none;
 	span {
 		font-size: 16px;
 	}
@@ -182,7 +185,8 @@ body {
   z-index: 50;
 	display: flex;
   justify-content: center;
-  align-items: center;
+	align-items: center;
+	pointer-events: none;
   form{
     display: flex;
     justify-content: center;
@@ -259,6 +263,46 @@ input:focus{
 			padding: 5px;
 		}
 	}
+}
+
+a:link{
+	text-decoration: none;
+}
+a:visited{
+	text-decoration: none;
+}
+
+.about-me{
+	display: flex;
+	justify-content: space-between;
+	button{
+		width: 64px;
+		height: 64px;
+	}
+}
+
+.github{
+	transition: all 1s linear;
+}
+.github:hover{
+	cursor: pointer;
+	transform: translateY(-5px);
+}
+
+.angel-list{
+	transition: all 1s linear;
+}
+.angel-list:hover{
+	cursor: pointer;
+	transform: translateY(-5px);
+}
+
+.linked-in{
+	transition: all 1s linear;
+}
+.linked-in:hover{
+	cursor: pointer;
+	transform: translateY(-5px);
 }
 
 .hidden {
