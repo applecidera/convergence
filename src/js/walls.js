@@ -12,7 +12,7 @@ function Wall(octant, difficulty) {
 		this.descaleFactor = 0.08;
 	} else if (difficulty === 'medium') {
 		this.speed = 9;
-		this.descaleFactor = 0.09;
+		this.descaleFactor = 0.9;
 	} else if (difficulty === 'hard') {
 		this.speed = 10;
 		this.descaleFactor = 0.1;
@@ -85,6 +85,8 @@ Wall.prototype.octantLogic = function(octant) {
 
 Wall.prototype.move = function(theta) {
 	const { hitbox, hitbox2 } = this;
+
+	if (this.scale > 1 + this.descaleFactor) this.scale -= this.descaleFactor;
 	let gameOver = false;
 	let posx = this.pos[0];
 	let posy = this.pos[1];
@@ -152,7 +154,6 @@ Wall.prototype.draw = function(ctx) {
 	const { pos } = this;
 	let x = pos[0];
 	let y = pos[1];
-	if (this.scale > 1 + this.descaleFactor) this.scale -= this.descaleFactor;
 
 	ctx.translate(x + this.xoffset * this.scale, y + this.yoffset * this.scale);
 	ctx.rotate(2 * Math.PI / 360 * (this.degreeRotation % 360));

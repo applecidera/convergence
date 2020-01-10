@@ -43,6 +43,8 @@ function Game(context) {
 }
 
 Game.prototype.logic = function(frameInterval) {
+	if (!this.isGameOver){
+
 	const { controls, cursor } = this;
 	if (controls.state.left.active) {
 		cursor.moveCursor('cclockwise');
@@ -60,6 +62,7 @@ Game.prototype.logic = function(frameInterval) {
 	this.timerCounter(frameInterval);
 
 	this.waveLogic(frameInterval);
+	}
 };
 
 Game.prototype.draw = function() {
@@ -68,21 +71,23 @@ Game.prototype.draw = function() {
 	ctx.setTransform(1, 0, 0, 1, 0, 0);	// resets transform to clear entire cavas
 	ctx.clearRect(-256, -256, dim_x+256, dim_y+256); // clear canvas
 	ctx.restore();
-
-	this.rotation += this.rotationSpeed;
-	this.totalRotation += this.rotation;
+	if (!this.isGameOver){
+		this.rotation += this.rotationSpeed;
+	}
+	
 	ctx.translate(768 / 2, 768 / 2);
 	ctx.rotate(2 * Math.PI / 360 * (this.rotation / 360));
 	ctx.translate(-768 / 2, -768 / 2);
 
 	ctx.fillStyle = 'blue';
 	ctx.strokeStyle = 'blue';
-	ctx.save();
 
 	// Cursor
-	this.cursor.draw(ctx, dim_x, dim_y);
-
-	this.ctx.restore();
+	if (!this.deadShip){
+		this.cursor.draw(ctx);
+	} else {
+		this.cursor.explosionAnimation(ctx);
+	}
 
 	// Waves
 	this.waves.forEach((wave) => {
@@ -218,12 +223,17 @@ Game.prototype.startNewGame = function() {
 	this.controls.state.right.active = false;
 	this.rotation = 0;
 	this.rotationSpeed = 0.1;
+	this.cursor.explosionFrame = 0;
+	this.deadShip = false;
 	this.isGameOver = false;
 };
 
 Game.prototype.gameOver = function() {
 	// option to play again, calls start new game
 	// this.controls.gameOver();
+	// TODO check high score to display name prompt
+	// if true, on form submit, set highscore = false and recall gameOver()
+	this.deadShip = true;
 	this.isGameOver = true;
 };
 

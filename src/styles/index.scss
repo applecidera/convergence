@@ -180,7 +180,8 @@ body {
   grid-column: 1/3;
   grid-row: 1/3;
   z-index: 50;
-  display: flex;
+	display: flex;
+	display: none;
   justify-content: center;
   align-items: center;
   form{

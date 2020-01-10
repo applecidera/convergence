@@ -8,25 +8,22 @@ function GameStage (context, game) {
   this.setTime = 0;
   this.cursor = this.game.addCursor();
   this.controls = this.game.addControls();
+  this.loadScreen = true;
   this.controls.gameOver();
 }
 
 GameStage.prototype.ticker = function(time){
   const {frameInterval, setTime} = this;
 
-  // time-limit
+  // frame limiter
   let curTime = time;
   let timeDif = curTime - setTime;
 
-  // frame limiter
-  if (timeDif >= frameInterval && !this.game.isGameOver){
+  // draw frame
+  if (timeDif >= frameInterval){
     this.game.logic(frameInterval);
     this.game.draw();
     this.setTime = curTime;
-  }
-  if (this.game.deadShip){
-    // explosion loop logic
-    // draw dead ship behind explosion (green ship)
   }
 
   window.requestAnimationFrame(this.ticker.bind(this));
