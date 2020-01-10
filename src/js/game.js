@@ -3,7 +3,7 @@ import Cursor from './cursor';
 import Wave from './wave';
 import { EASY_PATTERNS, MEDIUM_PATTERNS, HARD_PATTERNS } from './patterns';
 
-// initializer
+// constructor
 function Game(context) {
 
 	this.ctx = context;
@@ -46,10 +46,10 @@ Game.prototype.logic = function(frameInterval) {
 		cursor.moveCursor('clockwise');
 	}
 
-	if (this.totalTimeElapsed > 19.5 * 1000){
+	if (this.totalTimeElapsed > 9.5 * 1000){
 		this.difficulty = "medium";
 	}
-	if (this.totalTimeElapsed > 39.5 * 1000){
+	if (this.totalTimeElapsed > 19.5 * 1000){
 		this.difficulty = "hard";
 	}
 
@@ -174,13 +174,14 @@ Game.prototype.waveLogic = function(frameInterval) {
 
 	//cursor angle as theta
 	let degrees = this.cursor.degrees;
+	degrees = degrees % 360;
 	while (degrees < 0){
 		degrees += 360;
 	}
 
 	waves.forEach((wave) => {
 		// if any return true, call this.gameOver()	
-		if (wave.move(degrees, game)) this.gameOver();
+		if (wave.move(degrees, game)) this.controls.gameOver();
 	});
 };
 
@@ -200,6 +201,8 @@ Game.prototype.startNewGame = function() {
 	this.patternList = [];
 	this.difficulty = 'easy';
 	this.cursor.degrees = 270;
+	this.controls.state.left.active = false;
+	this.controls.state.right.active = false;
 	// this.controls.startGame();
 	this.isGameOver = false;
 };

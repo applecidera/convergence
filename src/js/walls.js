@@ -1,18 +1,23 @@
 function Wall(octant, difficulty) {
 	this.octant = octant;
 	this.sprite = new Image();
-  this.scale = 4;
-  this.speed = 5;
+	this.scale = 4;
+	// this.speed = 8;
+  // this.descaleFactor = 0.08;
+  this.difficulty;
 	this.sprite.src =
-    'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/thruster-2.png';
-  if (difficulty === "easy"){
-    this.speed = 5;
-  } else if (difficulty === "medium") {
-    this.speed = 6;
-  } else if (difficulty === "hard") {
-    this.speed = 7;
-  }
-	
+		'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/thruster-2.png';
+	if (difficulty === 'easy') {
+		this.speed = 8;
+		this.descaleFactor = 0.08;
+	} else if (difficulty === 'medium') {
+		this.speed = 9;
+		this.descaleFactor = 0.09;
+	} else if (difficulty === 'hard') {
+		this.speed = 10;
+		this.descaleFactor = 0.1;
+	}
+
 	this.octantLogic(octant);
 }
 
@@ -83,26 +88,29 @@ Wall.prototype.move = function(theta) {
 	let gameOver = false;
 	let posx = this.pos[0];
 	let posy = this.pos[1];
-	let distance = Math.sqrt((384 - posx) ** 2 + (384 - posy) ** 2);
+  let distance = Math.sqrt((384 - posx) ** 2 + (384 - posy) ** 2);
 
-	// TODO hitbox logic here, return true if gameOver
-  
-	if (
-		this.octant === 0 ||
-		this.octant === 2 ||
-		this.octant === 4 ||
-		this.octant === 6
-	) {
+	if (this.octant === 0 || this.octant === 2 || this.octant === 6) {
 		if (
 			theta > hitbox[0] &&
 			theta < hitbox[1] &&
 			distance >= 70 &&
 			distance <= 120
 		) {
-			// console.log(`angle is ${theta}`);
-			// console.log(`distance is ${distance}`);
-			// console.log(`octant is ${this.octant}`);
-			// console.log('gameover');
+			gameOver = true;
+		}
+	}
+	if (this.octant === 4) {
+		if (
+			(theta > hitbox[0] &&
+				theta < hitbox[1] &&
+				distance >= 70 &&
+				distance <= 120) ||
+			(theta > hitbox2[0] &&
+				theta < hitbox2[1] &&
+				distance >= 70 &&
+				distance <= 120)
+		) {
 			gameOver = true;
 		}
 	}
@@ -118,10 +126,6 @@ Wall.prototype.move = function(theta) {
 			distance >= 120 &&
 			distance <= 170
 		) {
-			// console.log(`angle is ${theta}`);
-			// console.log(`distance is ${distance}`);
-			// console.log(`octant is ${this.octant}`);
-			// console.log('gameover');
 			gameOver = true;
 		}
 	}
@@ -147,19 +151,19 @@ Wall.prototype.draw = function(ctx) {
 	const { pos } = this;
 	let x = pos[0];
 	let y = pos[1];
-	if (this.scale > 1.01) this.scale -= 0.05;
+	if (this.scale > 1 + this.descaleFactor) this.scale -= this.descaleFactor;
 
-	ctx.translate(x + (this.xoffset* this.scale), y + (this.yoffset* this.scale));
+	ctx.translate(x + this.xoffset * this.scale, y + this.yoffset * this.scale);
 	ctx.rotate(2 * Math.PI / 360 * (this.degreeRotation % 360));
 	ctx.drawImage(
 		this.sprite,
-		100* this.scale / 2,
-		100* this.scale / 2,
+		100 * this.scale / 2,
+		100 * this.scale / 2,
 		100 * this.scale,
 		100 * this.scale
 	);
 	ctx.rotate(2 * Math.PI / 360 * (-this.degreeRotation % 360));
-	ctx.translate(-x - (this.xoffset* this.scale), -y - (this.yoffset* this.scale));
+	ctx.translate(-x - this.xoffset * this.scale, -y - this.yoffset * this.scale);
 };
 
 module.exports = Wall;

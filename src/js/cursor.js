@@ -27,7 +27,6 @@ Cursor.prototype.draw = function(ctx, dim_x, dim_y){
   ctx.rotate(((2 * Math.PI) / 360) * (this.degrees % 360));
   ctx.translate(105, 0);
   ctx.drawImage(this.cursor, 0,-35);
-  // console.log(Math.abs(this.degrees % 360));
 }
 
 module.exports = Cursor;

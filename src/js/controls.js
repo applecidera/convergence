@@ -2,7 +2,6 @@
 // player controls
 function Controls(game){
   this.game = game;
-  this.degrees = 0;
   this.state = {
     left: {active: false},
     right: {active: false}

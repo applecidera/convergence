@@ -16,7 +16,7 @@ Wave.prototype.addWalls = function(difficulty) {
 
 	for (let octant = 0; octant < 8; octant++) {
 		if (pattern[octant] === 1) {
-			let newWall = new Wall(octant, this.difficulty);
+			let newWall = new Wall(octant, difficulty);
 			walls.push(newWall);
 		} else {
 			walls.push(null);
