@@ -12,7 +12,7 @@ function Wall(octant, difficulty) {
 		this.descaleFactor = 0.08;
 	} else if (difficulty === 'medium') {
 		this.speed = 9;
-		this.descaleFactor = 0.9;
+		this.descaleFactor = 0.09;
 	} else if (difficulty === 'hard') {
 		this.speed = 10;
 		this.descaleFactor = 0.1;

@@ -228,11 +228,22 @@ input:focus{
 }
 
 .high-score-box{
-  grid-column: 1/2;
-  grid-row: 2/3;
   display: flex;
   justify-content: flex-start;
-  align-items: flex-end;
+	align-items: flex-end;
+	flex-direction: column;
+	height: 300px;
+	width: 50%;
+	pointer-events: none;
+	color: white;
+	position: absolute;
+	right: 240px;
+	top: 50px;
+	font-weight: bold;
+}
+
+.hidden {
+	display: none;
 }
 
 @keyframes pop-up {

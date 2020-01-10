@@ -12,6 +12,7 @@ function Controls(game){
   this.keyUp = this.keyUp.bind(this);
   this.startGame = this.startGame.bind(this);
   this.gameOver = this.gameOver.bind(this);
+  this.highScoreList = document.getElementsByClassName('high-score-box');
   this.overlay = document.getElementsByClassName("overlay");
   this.bigLogo = document.getElementsByClassName("start-game-logo");
   this.smallLogo = document.getElementsByClassName("title-box");
@@ -73,6 +74,7 @@ Controls.prototype.startGame = function(e) {
     this.smallLogo[0].classList.add("title-box-fade-in");
     this.gameInfo[0].classList.remove("start-game-info-fade-in");
     this.gameInfo[0].classList.add("start-game-info-fade-out");
+    this.highScoreList[0].classList.add("hidden");
   }
 }
 
@@ -86,6 +88,7 @@ Controls.prototype.gameOver = function(highscore) {
   this.smallLogo[0].classList.add("title-box-fade-out");
   this.gameInfo[0].classList.remove("start-game-info-fade-out");
   this.gameInfo[0].classList.add("start-game-info-fade-in");
+  this.highScoreList[0].classList.remove("hidden");
 }
 
 export default Controls;
