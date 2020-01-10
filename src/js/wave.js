@@ -6,7 +6,7 @@ function Wave(pattern, difficulty) {
 	this.end = false;
   this.subwaveTimer = 0;
   this.currentSubwave = 0;
-  this.walls = this.addWalls();
+  this.walls = this.addWalls(difficulty);
   this.difficulty = difficulty;
 }
 

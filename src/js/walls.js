@@ -4,7 +4,7 @@ function Wall(octant, difficulty) {
 	this.scale = 4;
 	// this.speed = 8;
   // this.descaleFactor = 0.08;
-  this.difficulty;
+  this.difficulty = difficulty;
 	this.sprite.src =
 		'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/thruster-2.png';
 	if (difficulty === 'easy') {
@@ -89,6 +89,7 @@ Wall.prototype.move = function(theta) {
 	let posx = this.pos[0];
 	let posy = this.pos[1];
   let distance = Math.sqrt((384 - posx) ** 2 + (384 - posy) ** 2);
+  // debugger
 
 	if (this.octant === 0 || this.octant === 2 || this.octant === 6) {
 		if (
