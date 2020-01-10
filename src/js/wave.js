@@ -27,9 +27,7 @@ Wave.prototype.addWalls = function(difficulty) {
 };
 
 Wave.prototype.move = function(degrees, game) {
-	// TODO iterate thru each wall and set new coordinates, movement alowed based on elapsed time
 	// hitbox logic if any of the walls touch cursor, set gameOver = true
-	// actual logic in walls.js
 	let gameOver = false;
 
   for (let i = 0; i < 8; i++) {

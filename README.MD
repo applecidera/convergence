@@ -15,7 +15,7 @@ In Convergence users will be able to:
 * Bonus - Implement high-score system that tracks longest surviving time
 
 ## 3. Wireframes
-<img src="https://raw.githubusercontent.com/applecidera/hexa-evolution/master/assets/hexa-evolution-wireframe.png"/>
+<img src="https://raw.githubusercontent.com/applecidera/hexa-evolution/master/assets/convergence-wireframe.png"/>
 
 
 ## 4. Architecture and Technology

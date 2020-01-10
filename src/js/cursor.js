@@ -17,10 +17,6 @@ Cursor.prototype.moveCursor = function(direction){
   }
 }
 
-Cursor.prototype.collisionDetect = function(){
-  // TODO some sort of hitbox logic
-}
-
 Cursor.prototype.draw = function(ctx, dim_x, dim_y){
   ctx.beginPath();
   ctx.translate(dim_x/2, dim_y/2);
