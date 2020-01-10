@@ -23,9 +23,7 @@ class Game {
 		this.firstPlaceName = document.getElementsByClassName('first-place-name');
 		this.firstPlaceScore = document.getElementsByClassName('first-place-score');
 		this.secondPlaceName = document.getElementsByClassName('second-place-name');
-		this.secondPlaceScore = document.getElementsByClassName(
-			'second-place-score'
-		);
+		this.secondPlaceScore = document.getElementsByClassName('second-place-score');
 		this.thirdPlaceName = document.getElementsByClassName('third-place-name');
 		this.thirdPlaceScore = document.getElementsByClassName('third-place-score');
 

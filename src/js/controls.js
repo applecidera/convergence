@@ -17,6 +17,7 @@ class Controls {
 		this.bigLogo = document.getElementsByClassName('start-game-logo');
 		this.smallLogo = document.getElementsByClassName('title-box');
 		this.gameInfo = document.getElementsByClassName('start-game-info');
+		this.aboutMe = document.getElementsByClassName('about-me');
 	}
 
 	enablePlayerControls() {
@@ -75,6 +76,7 @@ class Controls {
 			this.gameInfo[0].classList.remove('start-game-info-fade-in');
 			this.gameInfo[0].classList.add('start-game-info-fade-out');
 			this.highScoreList[0].classList.add('hidden');
+			this.aboutMe[0].classList.add('hidden');
 			this.enablePlayerControls();
 		}
 	}
@@ -88,6 +90,7 @@ class Controls {
 		this.gameInfo[0].classList.remove('start-game-info-fade-out');
 		this.gameInfo[0].classList.add('start-game-info-fade-in');
 		this.highScoreList[0].classList.remove('hidden');
+		this.aboutMe[0].classList.remove('hidden');
 		this.disablePlayerControls();
 	}
 }

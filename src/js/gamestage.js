@@ -43,7 +43,7 @@ class GameStage {
 			},
 			false
 		);
-		audio.play();
+		// audio.play();
 	}
 }
 
