@@ -8,6 +8,7 @@ function Game(context) {
 	this.ctx = context;
 	this.dim_x = 768;
 	this.dim_y = 768;
+	// TODO fetch high scores from db
 	this.highScores = [
 		["Administrator", 28.79],
 		["Zekemeister", 23.45],
@@ -236,7 +237,7 @@ Game.prototype.startNewGame = function() {
 	this.controls.state.right.active = false;
 	this.rotation = 0;
 	this.rotationSpeed = 0.1;
-	this.cursor.explosionFrame = 0;
+	this.cursor.reset();
 	this.deadShip = false;
 	this.isGameOver = false;
 };

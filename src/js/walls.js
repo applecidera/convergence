@@ -95,8 +95,8 @@ Wall.prototype.move = function(theta) {
 
 	if (this.octant === 0 || this.octant === 2 || this.octant === 6) {
 		if (
-			theta > hitbox[0] &&
-			theta < hitbox[1] &&
+			theta >= hitbox[0] &&
+			theta <= hitbox[1] &&
 			distance >= 70 &&
 			distance <= 120
 		) {
@@ -105,12 +105,12 @@ Wall.prototype.move = function(theta) {
 	}
 	if (this.octant === 4) {
 		if (
-			(theta > hitbox[0] &&
-				theta < hitbox[1] &&
+			(theta >= hitbox[0] &&
+				theta <= hitbox[1] &&
 				distance >= 70 &&
 				distance <= 120) ||
-			(theta > hitbox2[0] &&
-				theta < hitbox2[1] &&
+			(theta >= hitbox2[0] &&
+				theta <= hitbox2[1] &&
 				distance >= 70 &&
 				distance <= 120)
 		) {
@@ -124,8 +124,8 @@ Wall.prototype.move = function(theta) {
 		this.octant === 7
 	) {
 		if (
-			theta > hitbox[0] &&
-			theta < hitbox[1] &&
+			theta >= hitbox[0] &&
+			theta <= hitbox[1] &&
 			distance >= 120 &&
 			distance <= 170
 		) {
