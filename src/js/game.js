@@ -238,7 +238,6 @@ class Game {
 		this.waves = [];
 		this.patternList = [];
 		this.difficulty = 'easy';
-		this.cursor.degrees = 270;
 		this.controls.state.left.active = false;
 		this.controls.state.right.active = false;
 		this.rotation = 0;

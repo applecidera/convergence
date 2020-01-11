@@ -22,7 +22,9 @@ class Controls {
 		this.deathExplosion = new Audio(
 			'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/explosion_sound.mp3'
 		);
-		// this.gameStartEffect = new Audio('/home/andrew/Documents/Sound effects Pack 2/Power-up/MP3/Powerup 1 - Sound effects Pack 2.mp3');
+		this.gameStartSound = new Audio(
+			'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/start_game_sound.mp3'
+		);
 	}
 
 	enablePlayerControls() {
@@ -37,7 +39,7 @@ class Controls {
 			if (initial) {
 				setTimeout(() => {
 					document.addEventListener('keydown', this.startGame);
-					this.loading[0].innerText = "Press Space to begin";
+					this.loading[0].innerText = 'Press Space to begin';
 				}, 3000);
 			} else {
 				document.addEventListener('keydown', this.startGame);
@@ -82,6 +84,8 @@ class Controls {
 			this.game.startNewGame();
 			this.deathExplosion.pause();
 			this.deathExplosion.currentTime = 0;
+			this.gameStartSound.currentTime = 0;
+			this.gameStartSound.play();
 			this.overlay[0].classList.add('clear-background-image');
 			this.bigLogo[0].classList.remove('start-game-logo-fade-in');
 			this.bigLogo[0].classList.add('start-game-logo-fade-out');
