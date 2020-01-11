@@ -241,7 +241,8 @@ class Game {
 		this.controls.state.left.active = false;
 		this.controls.state.right.active = false;
 		this.rotation = 0;
-		this.rotationSpeed = 0.1;
+		if (Math.round(Math.random())===0){
+		this.rotationSpeed = 0.1;} else {this.rotationSpeed = -0.1;};
 		this.cursor.reset();
 		this.deadShip = false;
 		this.isGameOver = false;
