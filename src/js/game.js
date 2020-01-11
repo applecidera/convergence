@@ -271,7 +271,7 @@ class Game {
 		}
 		this.deadShip = true;
 		this.isGameOver = true;
-		this.audio.stop();
+		this.audio.pause();
 	}
 
 	addHighScore(event) {
