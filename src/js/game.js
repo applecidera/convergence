@@ -26,6 +26,7 @@ class Game {
 		this.secondPlaceScore = document.getElementsByClassName('second-place-score');
 		this.thirdPlaceName = document.getElementsByClassName('third-place-name');
 		this.thirdPlaceScore = document.getElementsByClassName('third-place-score');
+		this.audio = new Audio('https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/Megalovania.mp3');
 
 		this.isGameOver = true;
 		this.totalTimeElapsed = 0;
@@ -245,6 +246,8 @@ class Game {
 		this.cursor.reset();
 		this.deadShip = false;
 		this.isGameOver = false;
+		this.audio.currentTime = 0;
+		this.audio.play();
 	}
 
 	gameOver() {
@@ -268,6 +271,7 @@ class Game {
 		}
 		this.deadShip = true;
 		this.isGameOver = true;
+		this.audio.stop();
 	}
 
 	addHighScore(event) {

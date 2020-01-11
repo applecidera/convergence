@@ -11,7 +11,6 @@ class GameStage {
 		this.controls = this.game.addControls();
 		this.loadScreen = true;
     this.controls.gameOver();
-    this.loopMusic();
 	}
 
 	ticker(time) {
@@ -31,20 +30,18 @@ class GameStage {
 		window.requestAnimationFrame(this.ticker.bind(this));
 	}
 
-	loopMusic() {
-		const audio = new Audio(
-			'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/Megalovania.mp3'
-		);
-		audio.addEventListener(
-			'ended',
-			() => {
-				audio.currentTime = 0;
-				audio.play();
-			},
-			false
-		);
-		// audio.play();
-	}
+	// loopMusic() {
+		
+	// 	audio.addEventListener(
+	// 		'ended',
+	// 		() => {
+	// 			audio.currentTime = 0;
+	// 			audio.play();
+	// 		},
+	// 		false
+	// 	);
+	// 	// audio.play();
+	// }
 }
 
 export default GameStage;
