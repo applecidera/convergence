@@ -18,6 +18,11 @@ class Controls {
 		this.smallLogo = document.getElementsByClassName('title-box');
 		this.gameInfo = document.getElementsByClassName('start-game-info');
 		this.aboutMe = document.getElementsByClassName('about-me');
+		this.loading = document.getElementsByClassName('loading');
+		this.deathExplosion = new Audio(
+			'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/explosion_sound.mp3'
+		);
+		// this.gameStartEffect = new Audio('/home/andrew/Documents/Sound effects Pack 2/Power-up/MP3/Powerup 1 - Sound effects Pack 2.mp3');
 	}
 
 	enablePlayerControls() {
@@ -27,9 +32,16 @@ class Controls {
 		document.addEventListener('keyup', this.keyUp);
 	}
 
-	disablePlayerControls() {
+	disablePlayerControls(initial) {
 		if (!this.game.newHighScore) {
-			document.addEventListener('keydown', this.startGame);
+			if (initial) {
+				setTimeout(() => {
+					document.addEventListener('keydown', this.startGame);
+					this.loading[0].innerText = "Press Space to begin";
+				}, 3000);
+			} else {
+				document.addEventListener('keydown', this.startGame);
+			}
 		}
 		document.removeEventListener('keydown', this.keyDown);
 		document.removeEventListener('keyup', this.keyUp);
@@ -68,6 +80,8 @@ class Controls {
 	startGame(e) {
 		if (e.code === 'Space') {
 			this.game.startNewGame();
+			this.deathExplosion.pause();
+			this.deathExplosion.currentTime = 0;
 			this.overlay[0].classList.add('clear-background-image');
 			this.bigLogo[0].classList.remove('start-game-logo-fade-in');
 			this.bigLogo[0].classList.add('start-game-logo-fade-out');
@@ -81,7 +95,10 @@ class Controls {
 		}
 	}
 
-	gameOver() {
+	gameOver(initial) {
+		if (!initial) {
+			this.deathExplosion.play();
+		}
 		this.game.gameOver();
 		this.bigLogo[0].classList.remove('start-game-logo-fade-out');
 		this.bigLogo[0].classList.add('start-game-logo-fade-in');
@@ -91,7 +108,7 @@ class Controls {
 		this.gameInfo[0].classList.add('start-game-info-fade-in');
 		this.highScoreList[0].classList.remove('hidden');
 		this.aboutMe[0].classList.remove('hidden');
-		this.disablePlayerControls();
+		this.disablePlayerControls(initial);
 	}
 }
 

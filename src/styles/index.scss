@@ -35,8 +35,7 @@ body {
 }
 
 .overlay {
-	background-image: url('https://mdn.mozillademos.org/files/1456/Canvas_sun.png');
-	background-size: auto 100%;
+	background: transparent;
 	position: absolute;
 	display: grid;
 	grid-template: 1fr 1fr / 1fr 1fr;
@@ -44,6 +43,7 @@ body {
 	left: 0;
 	height: 100%;
 	width: 100%;
+	animation: initial-load 3s ease-out forwards;
 }
 
 .clear-background-image {
@@ -324,7 +324,11 @@ img {
 }
 .angel-list:hover {
 	cursor: pointer;
-	transform: rotateY(180deg);
+	transform: scale(0.8);
+	animation: spin 3s ease-in-out alternate infinite;
+	img {
+		transform: scale(0.9) translateY(10px);
+	}
 }
 
 .linked-in {
@@ -332,7 +336,7 @@ img {
 }
 .linked-in:hover {
 	cursor: pointer;
-	transform: rotate(1turn);
+	animation: rotate 3s forwards ease-in-out infinite;
 }
 
 .hidden {
@@ -348,6 +352,30 @@ img {
 	}
 	100% {
 		transform: rotate(0.05turn);
+	}
+}
+
+@keyframes spin{
+	0% {
+		transform: rotateY(0deg);
+	}
+	50% {
+		transform: rotateY(180deg);
+	}
+	100% {
+		transform: rotateY(360deg);
+	}
+}
+
+@keyframes rotate{
+	0% {
+		transform: rotate(0turn) rotateX(0deg);
+	}
+	50% {
+		transform: rotate(0.5turn) rotateX(180deg);
+	}
+	100% {
+		transform: rotate(1turn) rotateX(360deg);
 	}
 }
 
@@ -370,5 +398,20 @@ img {
 	}
 	to {
 		opacity: 0;
+	}
+}
+
+@keyframes initial-load {
+	0%{
+		background: black;
+		background-size: auto 100%;
+	}
+	60%{
+		background: black;
+		background-size: auto 100%;
+	}
+	100%{
+		background: transparent;
+		background-size: auto 100%;
 	}
 }

@@ -10,7 +10,7 @@ class GameStage {
 		this.cursor = this.game.addCursor();
 		this.controls = this.game.addControls();
 		this.loadScreen = true;
-    this.controls.gameOver();
+    this.controls.gameOver(true);
 	}
 
 	ticker(time) {
@@ -29,19 +29,6 @@ class GameStage {
 
 		window.requestAnimationFrame(this.ticker.bind(this));
 	}
-
-	// loopMusic() {
-		
-	// 	audio.addEventListener(
-	// 		'ended',
-	// 		() => {
-	// 			audio.currentTime = 0;
-	// 			audio.play();
-	// 		},
-	// 		false
-	// 	);
-	// 	// audio.play();
-	// }
 }
 
 export default GameStage;

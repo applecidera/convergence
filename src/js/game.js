@@ -35,7 +35,7 @@ class Game {
 		this.waves = [];
 		this.patternList = [];
 		this.difficulty = 'easy';
-		this.rotation = 0;
+		this.rotation = -30;
 		this.rotationSpeed = 0.1;
 		this.newHighScore = false;
 		this.deadShip = false;
@@ -247,6 +247,7 @@ class Game {
 		this.deadShip = false;
 		this.isGameOver = false;
 		this.audio.currentTime = 0;
+		this.audio.volume = 1;
 		this.audio.play();
 	}
 
@@ -271,7 +272,7 @@ class Game {
 		}
 		this.deadShip = true;
 		this.isGameOver = true;
-		this.audio.pause();
+		this.audio.volume = 0.25;
 	}
 
 	addHighScore(event) {
@@ -318,7 +319,7 @@ class Game {
 		this.highScoreBox[0].classList.add('hidden');
 		this.newHighScore = false;
 		this.totalTimeElapsed = 0;
-		this.controls.gameOver();
+		this.controls.gameOver(true);
 	}
 }
 
