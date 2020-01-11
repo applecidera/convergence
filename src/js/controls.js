@@ -22,6 +22,7 @@ class Controls {
 		this.deathExplosion = new Audio(
 			'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/explosion_sound.mp3'
 		);
+		this.deathExplosion.volume = 0.5;
 		this.gameStartSound = new Audio(
 			'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/start_game_sound.mp3'
 		);
