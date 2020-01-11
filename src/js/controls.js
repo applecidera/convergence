@@ -38,6 +38,7 @@ class Controls {
 	disablePlayerControls(initial) {
 		if (!this.game.newHighScore) {
 			if (initial) {
+				this.loading[0].innerText = 'Loading';
 				setTimeout(() => {
 					document.addEventListener('keydown', this.startGame);
 					this.loading[0].innerText = 'Press Space to begin';
