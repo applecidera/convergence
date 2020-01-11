@@ -246,7 +246,7 @@ class Game {
 		this.deadShip = false;
 		this.isGameOver = false;
 		this.audio.currentTime = 0;
-		this.audio.volume = 1;
+		this.audio.volume = 0.5;
 		this.audio.play();
 	}
 
@@ -271,7 +271,7 @@ class Game {
 		}
 		this.deadShip = true;
 		this.isGameOver = true;
-		this.audio.volume = 0.25;
+		this.audio.volume = 0.1;
 	}
 
 	addHighScore(event) {
