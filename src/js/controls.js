@@ -84,8 +84,8 @@ class Controls {
 			this.game.startNewGame();
 			this.deathExplosion.pause();
 			this.deathExplosion.currentTime = 0;
-			this.gameStartSound.currentTime = 0;
-			this.gameStartSound.play();
+			// this.gameStartSound.currentTime = 0;
+			// this.gameStartSound.play();
 			this.overlay[0].classList.add('clear-background-image');
 			this.bigLogo[0].classList.remove('start-game-logo-fade-in');
 			this.bigLogo[0].classList.add('start-game-logo-fade-out');
