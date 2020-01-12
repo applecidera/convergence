@@ -251,6 +251,7 @@ input:focus {
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: flex-start;
+		width: 200px;
 		section {
 			padding-left: 50px;
 			padding-bottom: 10px;
@@ -260,6 +261,10 @@ input:focus {
 			display: flex;
 			justify-content: space-between;
 			width: 100%;
+			.class-name{
+				width: 75%;
+				text-overflow: ellipsis;
+			}
 		}
 		span {
 			padding: 5px;

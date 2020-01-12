@@ -34,7 +34,7 @@ class Controls {
 
 	disablePlayerControls(initial) {
 		if (!this.game.newHighScore) {
-			if (initial) {
+			if (initial === "newGame") {
 				this.loading[0].innerText = 'Loading';
 				setTimeout(() => {
 					document.addEventListener('keydown', this.startGame);
@@ -97,7 +97,7 @@ class Controls {
 	}
 
 	gameOver(initial) {
-		if (!initial) {
+		if (initial !== "newGame") {
 			this.deathExplosion.play();
 		}
 		this.game.gameOver();

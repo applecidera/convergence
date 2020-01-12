@@ -10,7 +10,7 @@ class GameStage {
 		this.cursor = this.game.addCursor();
 		this.controls = this.game.addControls();
 		this.loadScreen = true;
-    this.controls.gameOver(true);
+    this.controls.gameOver("newGame");
 	}
 
 	ticker(time) {

@@ -282,15 +282,15 @@ class Game {
 		this.highScoreBox[0].classList.add('hidden');
 		this.newHighScore = false;
 		this.totalTimeElapsed = 0;
-		this.controls.gameOver(true);
+		this.controls.gameOver("highscore");
 	}
 
 	populateHighScores(highScores){
-		this.highScoreList[0].innerHTML = "<section><span>Top Survivors</span></section>";
+		this.highScoreList[0].innerHTML = '<section><span>Top Survivors</span></section>';
 		this.highScores = [];	
 
 		highScores.forEach((scorer)=>{
-			this.highScoreList[0].innerHTML += `<div><span>${scorer.name} </span><span>${scorer.time}</span></div>`;
+			this.highScoreList[0].innerHTML += `<div><span class="player-name">${scorer.name} </span><span>${scorer.time} s</span></div>`;
 			this.highScores = this.highScores.concat(scorer.time);
 		})
 	}
