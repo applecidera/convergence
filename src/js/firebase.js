@@ -1,34 +1,32 @@
-// import * as firebase from 'firebase/app';
-// import 'firebase/database';
+import * as firebase from "firebase/app";
+import "firebase/database";
 
-const firebase = require("firebase");
-// Required for side-effects
-require("firebase/firestore");
+const firebaseConfig = {
+  apiKey: "AIzaSyBCBSXwc_rh85sCAfvOuvJ2BUMJxep1kxk",
+  authDomain: "convergence-16byte.firebaseapp.com",
+  databaseURL: "https://convergence-16byte.firebaseio.com",
+  projectId: "convergence-16byte",
+  storageBucket: "convergence-16byte.appspot.com",
+  messagingSenderId: "491691374635",
+  appId: "1:491691374635:web:780756555a50fa5267926e",
+  measurementId: "G-Q6CRPM2K5F"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.database();
+
+const randomId = () => {
+	return '_' + Math.random().toString(36).slice(2);
+};
+
+export const postHighScore = (name, time) =>{
+  const highScore = db.ref('highScores/' + randomId());
+  highScore.set({name, time});
+}
 
 
-// const randomId = () => {
-// 	return '_' + Math.random().toString(36).slice(2);
-// };
+const fetchHighScores = function(){
+  const highScores = db.collection('highScores');
 
-// Add config data here
-// var firebaseConfig = {
-//   apiKey: "",
-//   authDomain: "",
-//   databaseURL: "",
-//   projectId: "",
-//   storageBucket: "",
-//   messagingSenderId: "",
-//   appId: ""
-// };
-
-// firebase.initializeApp(firebaseConfig);
-
-// const firebaseDB = firebase.database();
-
-firebase.initializeApp({
-  apiKey: '### FIREBASE API KEY ###',
-  authDomain: '### FIREBASE AUTH DOMAIN ###',
-  projectId: '### CLOUD FIRESTORE PROJECT ID ###'
-});
-
-var db = firebase.firestore();
+}

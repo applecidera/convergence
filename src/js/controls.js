@@ -23,9 +23,6 @@ class Controls {
 			'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/explosion_sound.mp3'
 		);
 		this.deathExplosion.volume = 0.5;
-		this.gameStartSound = new Audio(
-			'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/start_game_sound.mp3'
-		);
 	}
 
 	enablePlayerControls() {
@@ -42,7 +39,7 @@ class Controls {
 				setTimeout(() => {
 					document.addEventListener('keydown', this.startGame);
 					this.loading[0].innerText = 'Press Space to begin';
-				}, 3000);
+				}, 1500);
 			} else {
 				document.addEventListener('keydown', this.startGame);
 			}
@@ -86,8 +83,6 @@ class Controls {
 			this.game.startNewGame();
 			this.deathExplosion.pause();
 			this.deathExplosion.currentTime = 0;
-			// this.gameStartSound.currentTime = 0;
-			// this.gameStartSound.play();
 			this.overlay[0].classList.add('clear-background-image');
 			this.bigLogo[0].classList.remove('start-game-logo-fade-in');
 			this.bigLogo[0].classList.add('start-game-logo-fade-out');

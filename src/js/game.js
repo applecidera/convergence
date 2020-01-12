@@ -13,7 +13,7 @@ class Game {
 		this.highScores = [
 			[ 'Administrator', 28.79 ],
 			[ 'Zekemeister', 23.45 ],
-			[ 'TheJonBae', 3.33 ]
+			[ 'TheJonBae', 19.45 ]
 		];
 		this.highScoreBox = document.getElementsByClassName('high-score-form');
 		this.highScoreInputField = document.getElementsByClassName(
