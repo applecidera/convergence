@@ -39,7 +39,7 @@ class Controls {
 				setTimeout(() => {
 					document.addEventListener('keydown', this.startGame);
 					this.loading[0].innerText = 'Press Space to begin';
-				}, 1500);
+				}, 2000);
 			} else {
 				document.addEventListener('keydown', this.startGame);
 			}

@@ -21,12 +21,21 @@ const randomId = () => {
 };
 
 export const postHighScore = (name, time) =>{
-  const highScore = db.ref('highScores/' + randomId());
-  highScore.set({name, time});
+  const highScoreRef = db.ref('highScores/' + randomId());
+  highScoreRef.set({name, time});
 }
 
+export const fetchHighScores = function(){
+  const highScoresRef = db.ref('highScores');
 
-const fetchHighScores = function(){
-  const highScores = db.collection('highScores');
+  // TODO use .then on data to populate high score state
+  // highScoresRef.once('value').then( (data) =>{
+  // TODO modify data in a way that is readable
+  //   renewHighScores(data);
+  // });
 
+  highScoresRef.once('value').then((data)=>{
+    console.log(data);
+    debugger
+  });
 }

@@ -1,6 +1,7 @@
 import Controls from './controls';
 import Cursor from './cursor';
 import Wave from './wave';
+import * as Firebase_API from './firebase';
 import { EASY_PATTERNS, MEDIUM_PATTERNS, HARD_PATTERNS } from './patterns';
 
 // constructor
@@ -11,9 +12,10 @@ class Game {
 		this.dim_y = 768;
 		// TODO fetch high scores from db
 		this.highScores = [
-			[ 'Administrator', 28.79 ],
-			[ 'Zekemeister', 23.45 ],
-			[ 'TheJonBae', 19.45 ]
+			[ 'Administrator', 30.9 ],
+			[ 'Zekemeister', 24.37 ],
+			['TheJonBae', 0.4 ]
+			// ['TheJonBae', 23.4 ]
 		];
 		this.highScoreBox = document.getElementsByClassName('high-score-form');
 		this.highScoreInputField = document.getElementsByClassName(
@@ -59,6 +61,8 @@ class Game {
 			if (this.warpGateIndex === 3) this.warpGateIndex = 0;
 		}, 500);
 		this.timer = document.getElementsByClassName('timer');
+
+		Firebase_API.fetchHighScores();
 	}
 
 	logic(frameInterval) {
