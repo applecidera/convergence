@@ -1,5 +1,5 @@
 # Convergence
-insert image here
+<img src="https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/Convergence_SS.png"/>
 
 ## Background & Overview
 Convergence is a limited movement survival game in which the player will control a ship on a 2d plane. Player controls are limited to Left-Arrow and Right-Arrow which will move the ship counterclockwise and clockwise respectively about a center pivot point. Players will need to move the ship in order to avoid converging walls of energy. The goal of the game is to not touch any of the moving shapes for 60 seconds. 
