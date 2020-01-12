@@ -4,30 +4,18 @@ import Wave from './wave';
 import * as Firebase_API from './firebase';
 import { EASY_PATTERNS, MEDIUM_PATTERNS, HARD_PATTERNS } from './patterns';
 
-// constructor
 class Game {
 	constructor(context) {
 		this.ctx = context;
 		this.dim_x = 768;
 		this.dim_y = 768;
-		// TODO fetch high scores from db
-		this.highScores = [
-			[ 'Administrator', 30.9 ],
-			[ 'Zekemeister', 24.37 ],
-			['TheJonBae', 0.4 ]
-			// ['TheJonBae', 23.4 ]
-		];
+		this.highScores = [999];
 		this.highScoreBox = document.getElementsByClassName('high-score-form');
 		this.highScoreInputField = document.getElementsByClassName(
 			'high-score-input-field'
 		);
+		this.highScoreList = document.getElementsByClassName('current-highest-scores');
 		document.addEventListener('submit', this.addHighScore.bind(this));
-		this.firstPlaceName = document.getElementsByClassName('first-place-name');
-		this.firstPlaceScore = document.getElementsByClassName('first-place-score');
-		this.secondPlaceName = document.getElementsByClassName('second-place-name');
-		this.secondPlaceScore = document.getElementsByClassName('second-place-score');
-		this.thirdPlaceName = document.getElementsByClassName('third-place-name');
-		this.thirdPlaceScore = document.getElementsByClassName('third-place-score');
 		this.audio = new Audio('https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/Megalovania.mp3');
 
 		this.isGameOver = true;
@@ -62,7 +50,7 @@ class Game {
 		}, 500);
 		this.timer = document.getElementsByClassName('timer');
 
-		Firebase_API.fetchHighScores();
+		Firebase_API.fetchHighScores(this.populateHighScores.bind(this));
 	}
 
 	logic(frameInterval) {
@@ -152,7 +140,6 @@ class Game {
 			this.subwaveTimer > this.subWaveInterval * 1000 ||
 			this.totalTimeElapsed === frameInterval
 		) {
-			// if (this.subwaveTimer > this.subWaveInterval * 1000 ) {
 			// if patternList is empty, add more patterns to patternList
 			if (this.patternList.length === 0) {
 				switch (difficulty) {
@@ -256,24 +243,23 @@ class Game {
 	}
 
 	gameOver() {
-		// TODO check high score to display name prompt
-		// if true, on form submit, set highscore = false and recall gameOver()
 		const survivedTime = Math.round(this.totalTimeElapsed / 10) / 100;
-		let firstPlace = this.highScores[0];
-		let secondPlace = this.highScores[1];
-		let thirdPlace = this.highScores[2];
+
 		this.highScoreBox[0].classList.remove('hidden');
 		this.highScoreBox[0].classList.add('hidden');
-		if (
-			survivedTime > firstPlace[1] ||
-			survivedTime > secondPlace[1] ||
-			survivedTime > thirdPlace[1]
+		
+		if (// if current survivted time is greater than any of the listed high scores
+			this.highScores.some((oldTime)=>{
+				return survivedTime > oldTime
+			})
+			
 		) {
 			this.newHighScore = true;
 			this.highScoreBox[0].classList.remove('hidden');
 			this.highScoreInputField[0].focus();
 			this.highScoreInputField[0].select();
 		}
+
 		this.deadShip = true;
 		this.isGameOver = true;
 		this.audio.volume = 0.1;
@@ -284,39 +270,12 @@ class Game {
 
 		const survivedTime = Math.round(this.totalTimeElapsed / 10) / 100;
 
-		let highScoreInputField = document.getElementsByClassName(
-			'high-score-input-field'
-		)[0];
+		let highScoreInputField = document.getElementsByClassName('high-score-input-field')[0];
 		let highScoreName = highScoreInputField.value;
-		let newPlayer = [ highScoreName, survivedTime ];
-		let firstPlace = this.highScores[0];
-		let secondPlace = this.highScores[1];
-		let thirdPlace = this.highScores[2];
 
-		if (survivedTime > firstPlace[1]) {
-			thirdPlace = secondPlace;
-			secondPlace = firstPlace;
-			firstPlace = newPlayer;
-		} else if (survivedTime > secondPlace[1]) {
-			thirdPlace = secondPlace;
-			secondPlace = newPlayer;
-		} else {
-			thirdPlace = newPlayer;
-		}
-
-		this.highScores = [ firstPlace, secondPlace, thirdPlace ];
-
-		// TODO move into own function
-		// reassign top survivors
-		// debugger
-		this.firstPlaceName[0].innerText = `First: ${firstPlace[0]}`;
-		this.firstPlaceScore[0].innerText = firstPlace[1].toString();
-		this.secondPlaceName[0].innerText = `Second: ${secondPlace[0]}`;
-		this.secondPlaceScore[0].innerText = secondPlace[1].toString();
-		this.thirdPlaceName[0].innerText = `Third: ${thirdPlace[0]}`;
-		this.thirdPlaceScore[0].innerText = thirdPlace[1].toString();
-
-		// database logic goes here
+		// TODO database stuff goes here
+		Firebase_API.postHighScore(highScoreName, survivedTime)
+		.then((el) => Firebase_API.fetchHighScores(this.populateHighScores.bind(this)));
 
 		// clear entered name and reset game logic
 		highScoreInputField.value = '';
@@ -325,6 +284,18 @@ class Game {
 		this.totalTimeElapsed = 0;
 		this.controls.gameOver(true);
 	}
+
+	populateHighScores(highScores){
+		this.highScoreList[0].innerHTML = "<section><span>Top Survivors</span></section>";
+		this.highScores = [];	
+
+		highScores.forEach((scorer)=>{
+			this.highScoreList[0].innerHTML += `<div><span>${scorer.name} </span><span>${scorer.time}</span></div>`;
+			this.highScores = this.highScores.concat(scorer.time);
+		})
+	}
 }
+
+
 
 export default Game;

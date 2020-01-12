@@ -3,20 +3,18 @@ class Wall {
 		this.octant = octant;
 		this.sprite = new Image();
 		this.scale = 4;
-		// this.speed = 8;
-		// this.descaleFactor = 0.08;
 		this.difficulty = difficulty;
 		this.sprite.src =
 			'https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/thruster-2.png';
 		if (difficulty === 'easy') {
+			this.speed = 7;
+			this.descaleFactor = 0.07;
+		} else if (difficulty === 'medium') {
 			this.speed = 8;
 			this.descaleFactor = 0.08;
-		} else if (difficulty === 'medium') {
+		} else if (difficulty === 'hard') {
 			this.speed = 9;
 			this.descaleFactor = 0.09;
-		} else if (difficulty === 'hard') {
-			this.speed = 10;
-			this.descaleFactor = 0.1;
 		}
 
 		this.octantLogic(octant);
