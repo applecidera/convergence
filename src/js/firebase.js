@@ -30,7 +30,7 @@ export const fetchHighScores = (populateHighScores) => {
 
 	highScoresRef
 		.orderByChild('time')
-		.limitToLast(5)
+		.limitToLast(10)
 		.once('value')
 		.then((data) => {
 			let highScores = [];
