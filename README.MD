@@ -1,4 +1,6 @@
 # Convergence
+Convergence is minimal movement game inspired by super hexagon and coded with pure Javascript. 
+
 <a href="https://applecidera.github.io/convergence/"><img src="https://raw.githubusercontent.com/applecidera/convergence/master/src/assets/convergence_ss.png"/></a>
 
 ## Background & Overview
