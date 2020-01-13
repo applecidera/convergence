@@ -2,7 +2,7 @@ import Controls from './controls';
 import Cursor from './cursor';
 import Wave from './wave';
 import * as Firebase_API from './firebase';
-import { EASY_PATTERNS, MEDIUM_PATTERNS, HARD_PATTERNS } from './patterns';
+import { EASY_PATTERNS, MEDIUM_PATTERNS, HARD_PATTERNS, UNFAIR_PATTERNS } from './patterns';
 
 class Game {
 	constructor(context) {
@@ -25,7 +25,7 @@ class Game {
 		this.waves = [];
 		this.patternList = [];
 		this.difficulty = 'easy';
-		this.rotation = -30;
+		this.rotation = -60;
 		this.rotationSpeed = 0.1;
 		this.newHighScore = false;
 		this.deadShip = false;
@@ -67,6 +67,9 @@ class Game {
 			}
 			if (this.totalTimeElapsed > 19.5 * 1000) {
 				this.difficulty = 'hard';
+			}
+			if (this.totalTimeElapsed > 29.5 * 1000) {
+				this.difficulty = 'unfair';
 			}
 
 			this.timerCounter(frameInterval);
@@ -163,9 +166,21 @@ class Game {
 						);
 						this.subWaveInterval = 0.5;
 						break;
+					case 'unfair':
+						this.patternList = this.patternList.concat(
+							UNFAIR_PATTERNS[Math.floor(Math.random() * UNFAIR_PATTERNS.length)]
+						);
+						this.subWaveInterval = 0.5;
+						break;
 				}
 			}
 			// this stuff runs at set intervals (2s)
+			if (this.difficulty === 'unfair'){
+				if (Math.round(Math.random()*10) === 1){
+					this.rotation *= -1.05;
+					this.rotationSpeed *= -1;
+				}
+			}
 			this.pattern = this.patternList.shift();
 			let newWave = new Wave(this.pattern, this.difficulty);
 			this.waves.push(newWave);

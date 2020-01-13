@@ -15,7 +15,10 @@ class Wall {
 		} else if (difficulty === 'hard') {
 			this.speed = 9;
 			this.descaleFactor = 0.09;
-		}
+		} else if (difficulty === 'unfair') {
+			this.speed = 10;
+			this.descaleFactor = 0.1;
+		}  
 
 		this.octantLogic(octant);
 	}
