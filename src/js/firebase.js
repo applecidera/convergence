@@ -35,9 +35,8 @@ export const fetchHighScores = (populateHighScores) => {
 		.then((data) => {
 			let highScores = [];
 			data.forEach((el) => {
-				highScores.push(el.val());
+				highScores.unshift(el.val());
 			});
-			highScores.reverse();
 			populateHighScores(highScores);
 		});
 };
