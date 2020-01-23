@@ -61,22 +61,6 @@ body {
 		pointer-events: initial;
 	}
 }
-.title-box-fade-in {
-	grid-column: 1/2;
-	grid-row: 1/2;
-	color: white;
-	display: flex;
-	justify-content: flex-start;
-	animation: fade 1s ease-in reverse;
-}
-.title-box-fade-out {
-	grid-column: 1/2;
-	grid-row: 1/2;
-	color: white;
-	display: flex;
-	justify-content: flex-start;
-	animation: fade 1s ease-in forwards;
-}
 
 .timer-box {
 	grid-column: 2/3;
