@@ -86,9 +86,6 @@ class Controls {
 			this.overlay[0].classList.add('clear-background-image');
 			this.bigLogo[0].classList.remove('start-game-logo-fade-in');
 			this.bigLogo[0].classList.add('start-game-logo-fade-out');
-			// this.smallLogo[0].classList.remove('title-box-fade-out');
-			// this.smallLogo[0].classList.remove('title-box-fade-in');
-			// this.smallLogo[0].classList.add('title-box-fade-in');
 			this.smallLogo[0].innerText="Convergence";
 			this.gameInfo[0].classList.remove('start-game-info-fade-in');
 			this.gameInfo[0].classList.add('start-game-info-fade-out');
@@ -105,10 +102,6 @@ class Controls {
 		this.game.gameOver();
 		this.bigLogo[0].classList.remove('start-game-logo-fade-out');
 		this.bigLogo[0].classList.add('start-game-logo-fade-in');
-		// this.smallLogo[0].classList.remove('title-box-fade-in');
-		// this.smallLogo[0].classList.add('title-box-fade-out');
-		// this.smallLogo[0].classList.remove('title-box-fade-in');
-		// this.smallLogo[0].classList.add('title-box-fade-in');
 		this.smallLogo[0].innerText="By Andrew Lee";
 		this.gameInfo[0].classList.remove('start-game-info-fade-out');
 		this.gameInfo[0].classList.add('start-game-info-fade-in');
