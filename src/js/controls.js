@@ -15,7 +15,7 @@ class Controls {
 		this.highScoreList = document.getElementsByClassName('high-score-box');
 		this.overlay = document.getElementsByClassName('overlay');
 		this.bigLogo = document.getElementsByClassName('start-game-logo');
-		this.smallLogo = document.getElementsByClassName('title-box');
+		this.smallLogo = document.getElementsByClassName('portfolio-link');
 		this.gameInfo = document.getElementsByClassName('start-game-info');
 		this.aboutMe = document.getElementsByClassName('about-me');
 		this.loading = document.getElementsByClassName('loading');
@@ -107,8 +107,8 @@ class Controls {
 		this.bigLogo[0].classList.add('start-game-logo-fade-in');
 		// this.smallLogo[0].classList.remove('title-box-fade-in');
 		// this.smallLogo[0].classList.add('title-box-fade-out');
-		this.smallLogo[0].classList.remove('title-box-fade-in');
-		this.smallLogo[0].classList.add('title-box-fade-in');
+		// this.smallLogo[0].classList.remove('title-box-fade-in');
+		// this.smallLogo[0].classList.add('title-box-fade-in');
 		this.smallLogo[0].innerText="By Andrew Lee";
 		this.gameInfo[0].classList.remove('start-game-info-fade-out');
 		this.gameInfo[0].classList.add('start-game-info-fade-in');

@@ -57,6 +57,9 @@ body {
 	display: flex;
 	justify-content: flex-start;
 	pointer-events: none;
+	span{
+		pointer-events: initial;
+	}
 }
 .title-box-fade-in {
 	grid-column: 1/2;
